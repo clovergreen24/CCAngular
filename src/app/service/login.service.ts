@@ -15,12 +15,14 @@ export class LoginService {
 
   login(form: Login): Observable<Usuario> {
     return this.http.post<Usuario>(this.loginUrl, form,  { withCredentials: true });
-    /*  .pipe(
+    /* .pipe(
         catchError((err: any) => {
           console.error('Error en el inicio de sesión:', err);
           return of({} as Usuario);
         })
       );*/
   }
+
+  
 }
 
