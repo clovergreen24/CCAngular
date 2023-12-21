@@ -7,10 +7,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsuarioComponent } from './usuario/usuario.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     UsuarioComponent
   ],
   imports: [
