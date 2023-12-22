@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
 <body class="container">
-  <div class="logo-container">
-  <img src="assets/logo.png" alt="Logo de la aplicación" class="logo">
-</div>
+ 
 <div *ngIf="usuario">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="assets/logo.png" alt="Logo de la aplicación" class="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Grupos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Amigos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Saldos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Gastos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pagos</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
     <h2 class="mt-4">Home de {{usuario.usuario}}</h2>
     <div class="card mt-4">
       <div class="card-body">
@@ -14,45 +42,6 @@
       </div>
     </div>
 
-    <!-- Grupos -->
-    <div class="card mt-4">
-      <div class="card-body">
-        <h3 class="card-title">Grupos</h3>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let grupo of usuario.grupos">{{ grupo.nombre }}</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Amigos -->
-    <div class="card mt-4">
-      <div class="card-body">
-        <h3 class="card-title">Amigos</h3>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let amigo of usuario.amigos">{{ amigo.usuario }}</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Saldos -->
-    <div class="card mt-4">
-      <div class="card-body">
-        <h3 class="card-title">Saldos</h3>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let saldo of usuario.saldos">{{ saldo.monto }}</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Pagos -->
-    <div class="card mt-4">
-      <div class="card-body">
-        <h3 class="card-title">Pagos</h3>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let pago of usuario.pagos">{{ pago.monto }}</li>
-        </ul>
-      </div>
-    </div>
   </div>
 
 </body>
