@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Login } from '../model/login.interface';
 import { Usuario } from '../model/usuario.interface';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,17 @@ import { catchError } from 'rxjs/operators';
 export class LoginService {
   loginUrl: string = "http://localhost:8080/usuario/login"
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  login(form: Login): Observable<Usuario> {
-    return this.http.post<Usuario>(this.loginUrl, form,  { withCredentials: true });
+  login(form: Login) {
+    this.http.post<Usuario>(this.loginUrl, form,  { withCredentials: true }).subscribe(data => {
+      if (data) {
+        localStorage.setItem("idUsuario", data.idUsuario.toString());
+        this.router.navigate(["usuario/" + data.idUsuario])
+
+      }
+    });
+   // this.http.post<Usuario>(this.loginUrl, form,  { withCredentials: true }).subscribe(data => console.log(data));
     /* .pipe(
         catchError((err: any) => {
           console.error('Error en el inicio de sesión:', err);
