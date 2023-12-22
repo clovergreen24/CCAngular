@@ -4,7 +4,7 @@ import { Pago } from "./pago.interface";
 import { Saldo } from "./saldo.interface";
 
 export interface Usuario {
-   //idUsuario: BigInt;
+   idUsuario: BigInt;
     usuario: string;
     nombre: string;
     contrasenia: string;

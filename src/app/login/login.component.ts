@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     const form = this.loginForm.value as Login;
-    this.login.login(form).subscribe(data => console.log(data));
+    this.login.login(form);
+
   }
 
 }
