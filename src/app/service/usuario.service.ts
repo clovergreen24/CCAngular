@@ -19,20 +19,10 @@ export class UsuarioService {
       );
   }*/
 
-  //crear usuario
-  registrarUsuario(form: Usuario): Observable<Usuario> {
-   return this.http.post<Usuario>(this.usuarioUrl, form,  { withCredentials: true });
-    /*.pipe(
-      catchError((err: any) => {
-        console.error('Error en el registro:', err);
-        return of({} as Usuario);
-      })
-    );*/
- }
-
- getUsuario(id: number): Observable<Usuario>{
-  return this.http.get<Usuario>(`${this.usuarioUrl}/${id}`, {withCredentials:true});
-
- }
-
+  
+  getUsuario(id: number): Observable<Usuario> {
+    const url = `${this.usuarioUrl}/${id}`;
+    return this.http.get<Usuario>(url, { withCredentials: true });
+  }
+  
 }
