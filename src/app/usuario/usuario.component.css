@@ -12,12 +12,28 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
+
+
 
 .card {
   margin-top: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sutil sombra */
-}
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+  margin-top: 20px;
+   }
+
+
 
 .card-title {
   color: #007bff; /* Color del título */
@@ -73,6 +89,19 @@ body {
 
 .card-body {
   margin-top: -10px; /* Ajusta según sea necesario */
+}
+
+.card-text {
+  text-align: center;
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
 }
 
 
