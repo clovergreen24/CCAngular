@@ -4,17 +4,17 @@ import { Pago } from "./pago.interface";
 import { Saldo } from "./saldo.interface";
 
 export interface Usuario {
-    /*idUsuario: BigInt;
-    usuario: String;
-    nombre: String;
-    contraseña: String;
-    email: String;
-    foto: Text;
+   //idUsuario: BigInt;
+    usuario: string;
+    nombre: string;
+    contrasenia: string;
+    email: string;
+    foto: string;
     amigos: [Usuario];
     grupos: [Grupo];
-    pagos: [Pago];
-    gastos: [Gasto];
-    saldos: [Saldo] */
-    status:string;
-    response:string; 
+   pagos: [Pago];
+   gastos: [Gasto];
+   saldos: [Saldo]; 
+    /*status:string;
+    response:string; */
 }

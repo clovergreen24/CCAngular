@@ -7,11 +7,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsuarioComponent } from './usuario/usuario.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { RegistrarseComponent } from './registrarse/registrarse.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsuarioComponent
+    LoginComponent,
+    UsuarioComponent,
+    RegistrarseComponent
   ],
   imports: [
     BrowserModule,

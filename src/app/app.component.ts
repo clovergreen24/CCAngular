@@ -10,6 +10,6 @@ export class AppComponent {
   title = 'AngularCuentasClaras';
 
   ngOnInit(): void {
-    initFlowbite();
+   initFlowbite();
   }
 }
