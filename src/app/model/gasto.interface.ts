@@ -13,4 +13,5 @@ export interface Gasto {
     grupo: Grupo;
     usuario: Usuario;
     saldos: Saldo[]  
+
 }

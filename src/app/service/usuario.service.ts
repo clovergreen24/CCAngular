@@ -1,20 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
-import 'rxjs/add/observable/of';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'my-auth-token'
-  })
-};
+import { Observable, catchError, of } from 'rxjs';
+import { Usuario } from '../model/usuario.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  usuarioUrl = 'localhost:8080/usuario';
+  usuarioUrl: string = "http://localhost:8080/usuario"
 
   constructor(private http: HttpClient) { }
 
@@ -25,4 +18,11 @@ export class UsuarioService {
           return Observable.of([])})
       );
   }*/
+
+  
+  getUsuario(id: number): Observable<Usuario> {
+    const url = `${this.usuarioUrl}/${id}`;
+    return this.http.get<Usuario>(url, { withCredentials: true });
+  }
+  
 }
