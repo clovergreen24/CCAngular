@@ -14,7 +14,7 @@ import { Categoria } from '../model/categoria.interface';
 })
 export class GrupoComponent implements OnInit {
 
-  misGrupos: Grupo[] = [{ idGrupo: BigInt(0), nombre: '', categoria: {}, gastos: [], imagen: ''}];
+  misGrupos: Grupo[] = [{ nombre: '', categoria: {}, gastos: [], imagen: ''}];
   id = Number(localStorage.getItem("usuarioId"));
   urlGrupo: String = "localhost:4000/{id}/misGrupos/grupoDetalle";
   constructor(private grupoService: GrupoService ) { }
