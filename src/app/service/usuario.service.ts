@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { Usuario } from '../model/usuario.interface';
+import { Grupo } from '../model/grupo.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,4 +26,8 @@ export class UsuarioService {
     return this.http.get<Usuario>(url, { withCredentials: true });
   }
   
+  getGrupos(id: number): Observable<Grupo[]>{
+    const url = `${this.usuarioUrl}/${id}/grupos`;
+    return this.http.get<Grupo[]>(url);
+  }
 }

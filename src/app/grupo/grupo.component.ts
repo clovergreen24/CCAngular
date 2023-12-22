@@ -15,7 +15,7 @@ import { Categoria } from '../model/categoria.interface';
 export class GrupoComponent implements OnInit {
 
   misGrupos: Grupo[] = [{ idGrupo: BigInt(0), nombre: '', categoria: {}, gastos: [], imagen: ''}];
-
+  urlGrupo: String = "login.component.html";
   constructor(private grupoService: GrupoService ) { }
 
   ngOnInit(): void {
@@ -23,7 +23,8 @@ export class GrupoComponent implements OnInit {
   }
 
   llenarGrupos() {
-    this.grupoService.getGrupos().subscribe(grupos => {
+    const id = Number(localStorage.getItem("usuarioId"));
+    this.grupoService.getGruposDeUsuario(id).subscribe(grupos => {
       this.misGrupos.pop();
       this.misGrupos = grupos;
       console.log(this.misGrupos)
