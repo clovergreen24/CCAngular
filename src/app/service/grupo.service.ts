@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Grupo } from '../model/grupo.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class GrupoService {
 
   constructor(private http: HttpClient) { }
 
-  public getGrupos(): Observable<any> {
-    return this.http.get<any>(this.urlApi);
+  public getGrupos(): Observable<Grupo[]> {
+    return this.http.get<Grupo[]>(this.urlApi);
   }
 }

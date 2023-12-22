@@ -5,12 +5,12 @@ import { Saldo } from './saldo.interface';
 
 export interface Gasto {
     idGasto: BigInt;
-    /*monto: Decimal;*/
+    monto: number;
     fecha: Date;
     imagen: Text;
     tipoDivision: number;
     categoria: Categoria;
     grupo: Grupo;
     usuario: Usuario;
-    saldos: [Saldo]  
+    saldos: Saldo[]  
 }
