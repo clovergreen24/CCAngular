@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GrupoService } from '../service/grupo.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Grupo } from '../model/grupo.interface';
 import { Categoria } from '../model/categoria.interface';
 
@@ -9,7 +9,7 @@ import { Categoria } from '../model/categoria.interface';
   selector: 'app-grupo',
   templateUrl: './grupo.component.html',
   styleUrl: './grupo.component.css',
-  imports: [NgFor],
+  imports: [NgFor, NgIf],
   providers: [GrupoService]
 })
 export class GrupoComponent implements OnInit {
@@ -20,6 +20,7 @@ export class GrupoComponent implements OnInit {
   constructor(private grupoService: GrupoService ) { }
 
   ngOnInit(): void {
+    console.log(this.id)
     this.llenarGrupos();
   }
 
@@ -27,7 +28,7 @@ export class GrupoComponent implements OnInit {
     this.grupoService.getGruposDeUsuario(this.id).subscribe(grupos => {
       this.misGrupos.pop();
       this.misGrupos = grupos;
-      console.log(this.misGrupos)
+      console.log(this.misGrupos);
     })
   }
 }
