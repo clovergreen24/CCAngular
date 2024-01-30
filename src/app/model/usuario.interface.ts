@@ -10,11 +10,11 @@ export interface Usuario {
     contrasenia: string;
     email: string;
     foto: string;
+    token: string;
     amigos: [Usuario];
     grupos: [Grupo];
    pagos: [Pago];
    gastos: [Gasto];
    saldos: [Saldo]; 
-    /*status:string;
-    response:string; */
+   
 }
