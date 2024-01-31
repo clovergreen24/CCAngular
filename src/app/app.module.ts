@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsuarioComponent } from './usuario/usuario.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { RegistrarseComponent } from './registrarse/registrarse.component';
 import { GrupoDetalleComponent } from './grupo-detalle/grupo-detalle.component';
+import { JwtInterceptor, ErrorInterceptor } from './helpers';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,10 @@ import { GrupoDetalleComponent } from './grupo-detalle/grupo-detalle.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
