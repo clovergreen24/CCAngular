@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { Usuario } from '../model/usuario.interface';
 import { Grupo } from '../model/grupo.interface';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  usuarioUrl: string = "http://localhost:8080/usuario"
+  usuarioUrl: string = "http://localhost:8080/jwt/usuario"
 
   constructor(private http: HttpClient) { }
 
@@ -26,8 +27,9 @@ export class UsuarioService {
     return this.http.get<Usuario>(url, { withCredentials: true });
   }
   
-  getGrupos(id: number): Observable<Grupo[]>{
-    const url = `${this.usuarioUrl}/${id}/grupos`;
-    return this.http.get<Grupo[]>(url);
+  getGrupos(username: string): Observable<Grupo[]>{
+    console.log("llegue a usuario service");
+    
+    return this.http.get<Grupo[]>(this.usuarioUrl + "/" +username + "/grupos");
   }
 }

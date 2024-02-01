@@ -29,7 +29,7 @@ export class AuthenticationService {
                     localStorage.setItem('currentUser', JSON.stringify(credentials));
                     this.currentUserSubject.next(credentials);
                 }
-
+                
                 return credentials;
             }));
     }

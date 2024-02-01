@@ -3,6 +3,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { AuthenticationService } from '../service/authentication.service';
+import * as jwt_decode from 'jwt-decode';
 
 
 @Injectable()
@@ -11,15 +12,14 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // agrego Authorization Header con jwt token si esta disponible
-        let currentUser = this.authenticationService.currentUserValue;
-        if (currentUser && currentUser.token) {
-            request = request.clone({
-                setHeaders: {
-                    Authorization: `Bearer ${currentUser.token}`
-                }
-            });
-        }
-
-        return next.handle(request);
+        let currentUser = localStorage.getItem("currentUser");
+        
+        const authReq= request.clone({
+            headers: request.headers.set(
+                'Authorization',
+                'Bearer ' + (localStorage.getItem("currentUser") || '')
+            ),
+        });
+        return next.handle(authReq);
     }
 }

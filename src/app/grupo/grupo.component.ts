@@ -3,6 +3,8 @@ import { GrupoService } from '../service/grupo.service';
 import { NgFor, NgIf } from '@angular/common';
 import { Grupo } from '../model/grupo.interface';
 import { Categoria } from '../model/categoria.interface';
+import { UsuarioService } from '../service/usuario.service';
+import * as jwt_decode  from 'jwt-decode';
 
 @Component({
   standalone: true,
@@ -15,20 +17,26 @@ import { Categoria } from '../model/categoria.interface';
 export class GrupoComponent implements OnInit {
 
   misGrupos: Grupo[] = [{ nombre: '', categoria: {}, gastos: [], imagen: ''}];
-  id = Number(localStorage.getItem("usuarioId"));
-  urlGrupo: String = "localhost:4000/{id}/misGrupos/grupoDetalle";
-  constructor(private grupoService: GrupoService ) { }
+  urlGrupo: String = "localhost:4200/misGrupos/grupoDetalle";
+
+  constructor(
+    private grupoService: GrupoService) {
+       
+    }
 
   ngOnInit(): void {
-    console.log(this.id)
     this.llenarGrupos();
   }
 
   llenarGrupos() {
-    this.grupoService.getGruposDeUsuario(this.id).subscribe(grupos => {
+    let usuario = localStorage.getItem("currentUser" || '');
+    const tokenData= jwt_decode.jwtDecode(String(usuario));
+    let username = tokenData.sub as string;
+    console.log(username);
+    this.grupoService.getGruposDeUsuario(username).subscribe(grupos => {
       this.misGrupos.pop();
       this.misGrupos = grupos;
-      console.log(this.misGrupos);
+      console.log('mis grupos: ' +this.misGrupos);
     })
   }
 }
