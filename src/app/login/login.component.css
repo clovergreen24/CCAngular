@@ -26,7 +26,11 @@ html {
     color: #cccccc;
   }
   
-  
+  .fadeIn.first {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+  }
   
   /* STRUCTURE */
   

@@ -8,7 +8,7 @@ import { Usuario } from '../model/usuario.interface';
   providedIn: 'root'
 })
 export class RegistrarseService {
-  usuarioUrl: string = "http://localhost:8080/usuario"
+  usuarioUrl: string = "http://localhost:8080/jwt/usuario"
 
   constructor(private http: HttpClient) { }
 

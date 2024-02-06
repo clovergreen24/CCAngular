@@ -8,7 +8,7 @@ import { Grupo } from '../model/grupo.interface';
   providedIn: 'root'
 })
 export class UsuarioService {
-  usuarioUrl: string = "http://localhost:8080/usuario"
+  usuarioUrl: string = "http://localhost:8080/jwt/usuario"
 
   constructor(private http: HttpClient) { }
 
@@ -21,8 +21,8 @@ export class UsuarioService {
   }*/
 
   
-  getUsuario(id: number): Observable<Usuario> {
-    const url = `${this.usuarioUrl}/${id}`;
+  getUsuario(username: string): Observable<Usuario> {
+    const url = `${this.usuarioUrl}/username/${username}`;
     return this.http.get<Usuario>(url, { withCredentials: true });
   }
   

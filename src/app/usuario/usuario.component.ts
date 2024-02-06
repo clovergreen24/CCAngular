@@ -21,7 +21,7 @@ export class UsuarioComponent implements OnInit {
     this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) =>
-          this.usuarioService.getUsuario(Number(params.get('id')))
+          this.usuarioService.getUsuario(String(params.get('username')))
         )
       )
       .subscribe((usuario: Usuario) => {

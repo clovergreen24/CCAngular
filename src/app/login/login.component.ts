@@ -5,6 +5,7 @@ import { Login } from '../model/login.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
 import { first } from 'rxjs/operators';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -13,23 +14,23 @@ import { first } from 'rxjs/operators';
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
-  
+
   loginForm = new FormGroup({
     usuario: new FormControl('', Validators.required),
     contrasenia: new FormControl('', Validators.required)
-    
+
   });
-    loading = false;
-    submitted = false;
-    returnUrl: undefined | string;
-    error = '';
-    
+  loading = false;
+  submitted = false;
+  returnUrl: undefined | string;
+  error = '';
+
 
   constructor(
-    private login: LoginService, 
+    private login: LoginService,
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
-      private router: Router,) { }
+    private router: Router,) { }
   ngOnInit(): void {
     // elimino las credenciales del usuario, si es que existen
     this.authenticationService.logout();
@@ -38,19 +39,27 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.loginForm.controls; }
 
-  onLogin(){
+  onLogin() {                          
     const form = this.loginForm.value as Login;
     this.authenticationService.login(this.f.usuario.value, this.f.contrasenia.value)
-            .pipe(first())
-            .subscribe(
-                () => {
-                    this.router.navigate([this.returnUrl]); //esta variable la podes usar para redireccionar al home
-                    console.log(this.authenticationService.currentUserValue); //esto es para mirar en la consola del navegador si se genero
-                },
-                () => {
-                    this.error = 'Nombre de usuario o Contraseña incorrectas';
-                    this.loading = false;
-                });
+      .pipe(first())
+      .subscribe(
+        () => {
+          let usuario = localStorage.getItem("currentUser" || '');
+          const tokenData = jwt_decode.jwtDecode(String(usuario));
+          let username = tokenData.sub as String;
+
+          // Construye la URL de redirección utilizando el username
+          const returnUrl = `/usuario/username/${username}`;                           //tengo que agregarle el jwt? 
+
+          // Redirige al usuario a la URL construida
+          this.router.navigate([returnUrl]); //esta variable la podes usar para redireccionar al home
+          console.log(this.authenticationService.currentUserValue); //esto es para mirar en la consola del navegador si se genero
+        },
+        () => {
+          this.error = 'Nombre de usuario o Contraseña incorrectas';
+          this.loading = false;
+        });
 
   }
 
