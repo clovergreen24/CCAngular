@@ -19,9 +19,6 @@ export class GrupoService {
 
   getGruposDeUsuario(username: string): Observable<Grupo[]>{
     let grupos = this.usuarioService.getGrupos(username);
-    if (!grupos) {
-      console.log("pito");
-    }
     return grupos
   }
 }

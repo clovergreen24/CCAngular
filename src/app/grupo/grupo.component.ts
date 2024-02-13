@@ -17,7 +17,7 @@ import * as jwt_decode  from 'jwt-decode';
 export class GrupoComponent implements OnInit {
 
   misGrupos: Grupo[] = [{ nombre: '', categoria: {}, gastos: [], imagen: ''}];
-  urlGrupo: String = "localhost:4200/misGrupos/grupoDetalle";
+  urlGrupo: String = "/misGrupos/grupoDetalle";
 
   constructor(
     private grupoService: GrupoService) {
@@ -32,11 +32,9 @@ export class GrupoComponent implements OnInit {
     let usuario = localStorage.getItem("currentUser" || '');
     const tokenData= jwt_decode.jwtDecode(String(usuario));
     let username = tokenData.sub as string;
-    console.log(username);
     this.grupoService.getGruposDeUsuario(username).subscribe(grupos => {
       this.misGrupos.pop();
       this.misGrupos = grupos;
-      console.log('mis grupos: ' +this.misGrupos);
     })
   }
 }
