@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuarioService } from '../service/usuario.service';
 import { Registrarse } from '../model/registrarse.interface';
+import { Usuario } from '../model/usuario.interface';
+import { RegistrarseDetalleComponent } from '../registrarse-detalle/registrarse-detalle.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrarse',
@@ -20,16 +24,17 @@ export class RegistrarseComponent implements OnInit {
     });
 
 
-  constructor(private registrarseService: RegistrarseService) { }
+  constructor(private registrarseService: RegistrarseService,
+    private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
        
   }
 
-  onRegister(){
-    if (this.registerForm.valid) {
-      const reg = this.registerForm.value as Registrarse;
-      this.registrarseService.registrarUsuario(reg).subscribe(data => console.log(data));
+  //onRegister(){                                             //comente probando
+    //if (this.registerForm.valid) {                                //comente probando
+     // const reg = this.registerForm.value as Registrarse;                      //comente probando
+     // this.registrarseService.registrarUsuario(reg).subscribe(data => console.log(data));         //comente probando
       //(
        // (response) => {
         //  console.log('Usuario registrado exitosamente:', response);
@@ -40,7 +45,36 @@ export class RegistrarseComponent implements OnInit {
           // Manejar errores según sea necesario
        // }
       //);
-    }
-  }  
+   // }                                   //comente probando
+  //}   //comente probando
 
+  
+  onRegister() {
+    if (this.registerForm.valid) {
+      const reg = this.registerForm.value as Registrarse; 
+      this.registrarseService.registrarUsuario(reg).subscribe(
+        (usuario: Usuario) => {
+         // if (usuario) {
+          // Si el registro es exitoso, mostrar el mensaje de éxito
+          this.openDialog('success', reg.usuario);
+          this.router.navigate(['/login']);
+       
+          //}
+      },
+      (error) => {
+        this.openDialog('error', reg.usuario);
+      }
+    );
+  }               
 }
+  
+  
+  openDialog(type: string, username: string): void {
+    this.dialog.open(RegistrarseDetalleComponent, {
+      width: '250px',
+      data: { type: type, username: username }
+    });
+  }
+  
+
+}  
