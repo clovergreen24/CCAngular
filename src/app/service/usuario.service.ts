@@ -22,8 +22,8 @@ export class UsuarioService {
   }*/
 
   
-  getUsuario(id: number): Observable<Usuario> {
-    const url = `${this.usuarioUrl}/${id}`;
+  getUsuario(username: string): Observable<Usuario> {
+    const url = `${this.usuarioUrl}/username/${username}`;
     return this.http.get<Usuario>(url, { withCredentials: true });
   }
   
