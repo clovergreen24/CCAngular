@@ -18,9 +18,9 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path: 'registrarse', component:RegistrarseComponent},
 
-  {path: 'usuario/username/:username', component: UsuarioComponent},
-  {path:'misGrupos', component:GrupoComponent},
-  {path:'misGrupos/grupoDetalle/:id', component:GrupoDetalleComponent}
+  {path: ':username', component: UsuarioComponent},
+  {path:':username/misGrupos', component:GrupoComponent},
+  {path:':username/misGrupos/grupoDetalle/:id', component:GrupoDetalleComponent}
 
 
 ];

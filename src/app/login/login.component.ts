@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
           let username = tokenData.sub as String;
 
           // Construye la URL de redirección utilizando el username
-          const returnUrl = `/usuario/username/${username}`;                           //tengo que agregarle el jwt? 
+          const returnUrl = `/${username}`;                           //tengo que agregarle el jwt? 
 
           // Redirige al usuario a la URL construida
           this.router.navigate([returnUrl]); //esta variable la podes usar para redireccionar al home
