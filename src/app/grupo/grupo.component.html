@@ -1,23 +1,22 @@
-<section class="bg-white dark:bg-gray-900">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
-        <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Tus grupos</h2>
-            <p class="font-light text-gray-500 lg:mb-16 sm:text-xl dark:text-gray-400">Aca podes ver todos los grupos de los que sos parte</p>
-        </div> 
-        <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2" *ngFor="let grupo of misGrupos">
-            <div class="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
-                <a href={{urlGrupo}}>
-                    <img class="w-full rounded-lg sm:rounded-none sm:rounded-l-lg" src="https://i.pinimg.com/originals/8d/64/33/8d64336c576b0676ebc3148ffe36ff70.png" length="200" width="200">
-                </a>
-                
-                <div class="p-5">
-                    <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        {{grupo.nombre}}
-                    </h3>
-                    <span class="text-gray-500 dark:text-gray-400">{{grupo.categoria?.nombre}}</span>
-                </div>
-        
-            </div> 
-        </div>  
+<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+    <div class="titulo" *ngIf="misGrupos.length>0; else sinGrupos">
+        Estos son tus grupos
     </div>
-</section>
+      
+    <ng-template #sinGrupos class="titulo">
+        No sos parte de ningun grupo
+    </ng-template>
+      
+    <div [hidden]="!misGrupos" class="list-group" *ngFor="let grupo of misGrupos">
+      <a href="/misGrupos/grupoDetalle" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+          <div>
+            <h6 class="mb-0">{{grupo.nombre}}</h6>
+            <p class="mb-0 opacity-75">{{grupo.categoria?.nombre}}</p>
+          </div>
+          <small class="opacity-50 text-nowrap">pito</small>
+        </div>
+      </a>
+    </div>
+</div>

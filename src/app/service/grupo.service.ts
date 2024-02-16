@@ -17,7 +17,8 @@ export class GrupoService {
     return this.http.get<Grupo[]>(this.urlApi);
   }
 
-  getGruposDeUsuario(id: number): Observable<Grupo[]>{
-    return this.usuarioService.getGrupos(id);
+  getGruposDeUsuario(username: string): Observable<Grupo[]>{
+    let grupos = this.usuarioService.getGrupos(username);
+    return grupos
   }
 }
