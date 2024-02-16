@@ -6,6 +6,7 @@ body {
   align-items: center;
   min-height: 50vh; /* Asegura que la página esté centrada verticalmente en la ventana */
   margin: 0; /* Elimina el margen predeterminado del cuerpo */
+
 }
 
 .container {
@@ -14,8 +15,6 @@ body {
   align-items: center;
   
 }
-
-
 
 .card {
   margin-top: 20px;
@@ -32,7 +31,6 @@ body {
   text-align: center;
   margin-top: 20px;
    }
-
 
 
 .card-title {

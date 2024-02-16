@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-  loginUrl: string = "http://localhost:8080/usuario/login"
+  loginUrl: string = "http://localhost:8080/jwt/usuario/login"
 
   constructor(private http: HttpClient, private router: Router) { }
 
