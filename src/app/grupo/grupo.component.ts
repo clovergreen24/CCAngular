@@ -6,6 +6,7 @@ import { Categoria } from '../model/categoria.interface';
 import { UsuarioService } from '../service/usuario.service';
 import * as jwt_decode  from 'jwt-decode';
 import { RouterModule } from '@angular/router';
+import { LocalizedString } from '@angular/compiler';
 
 @Component({
   standalone: true,
@@ -18,10 +19,12 @@ import { RouterModule } from '@angular/router';
 export class GrupoComponent implements OnInit {
   
   misGrupos: Grupo[] = [{ idGrupo: 0, nombre: '', categoria: {}, gastos: [], imagen: '', integrantes: [], saldos: [], pagos: []}];
+  username: string = "";
 
-  constructor(
-    private grupoService: GrupoService) {
-       
+  
+  
+  constructor(private grupoService: GrupoService) {
+
     }
 
   ngOnInit(): void {
@@ -31,8 +34,8 @@ export class GrupoComponent implements OnInit {
   llenarGrupos() {
     let usuario = localStorage.getItem("currentUser" || '');
     const tokenData= jwt_decode.jwtDecode(String(usuario));
-    let username = tokenData.sub as string;
-    this.grupoService.getGruposDeUsuario(username).subscribe(grupos => {
+    this.username = tokenData.sub as string;
+    this.grupoService.getGruposDeUsuario(this.username).subscribe(grupos => {
       this.misGrupos.pop();
       this.misGrupos = grupos;
     })
