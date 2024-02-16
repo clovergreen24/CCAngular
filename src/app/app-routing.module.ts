@@ -19,14 +19,14 @@ const routes: Routes = [
   {path: 'registrarse', component:RegistrarseComponent},
 
   {path: 'usuario/username/:username', component: UsuarioComponent},
-  {path:'usuario/:id/misGrupos', component:GrupoComponent},
-  {path:'usuario/:id/misGrupos/grupoDetalle', component:GrupoDetalleComponent}
+  {path:'misGrupos', component:GrupoComponent},
+  {path:'misGrupos/grupoDetalle/:id', component:GrupoDetalleComponent}
 
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), CommonModule], 
+  imports: [RouterModule.forRoot(routes), CommonModule ], 
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

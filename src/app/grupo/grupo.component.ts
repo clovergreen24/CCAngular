@@ -5,19 +5,19 @@ import { Grupo } from '../model/grupo.interface';
 import { Categoria } from '../model/categoria.interface';
 import { UsuarioService } from '../service/usuario.service';
 import * as jwt_decode  from 'jwt-decode';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-grupo',
   templateUrl: './grupo.component.html',
   styleUrl: './grupo.component.css',
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, RouterModule],
   providers: [GrupoService]
 })
 export class GrupoComponent implements OnInit {
-
-  misGrupos: Grupo[] = [{ nombre: '', categoria: {}, gastos: [], imagen: ''}];
-  urlGrupo: String = "/misGrupos/grupoDetalle";
+  
+  misGrupos: Grupo[] = [{ idGrupo: 0, nombre: '', categoria: {}, gastos: [], imagen: '', integrantes: [], saldos: [], pagos: []}];
 
   constructor(
     private grupoService: GrupoService) {
