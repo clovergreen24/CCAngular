@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Grupo } from '../model/grupo.interface';
+import { Usuario } from '../model/usuario.interface';
 import { UsuarioService } from './usuario.service';
 
 @Injectable({
@@ -21,5 +22,9 @@ export class GrupoService {
 
   public getGrupo(id: string | null){
     return this.http.get<Grupo>(this.urlApi + '/' + id)
+  }
+
+  getIntegrantes(id: string | null):Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(this.urlApi + '/' + id + '/miembros')
   }
 }

@@ -1,1 +1,17 @@
-<p>grupo-detalle on grupo {{grupo.nombre}} works!</p>
+<title>{{grupo.nombre}}</title>
+
+<div class="list-group" *ngFor="let miembro of miembros">
+      <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+      <div class="d-flex gap-2 w-100 justify-content-between">
+        <div>
+          <h6 class="mb-0">{{miembro.usuario}}</h6>
+          <p class="mb-0 opacity-75">{{miembro.nombre}}</p>
+        </div>
+        <small class="opacity-50 text-nowrap"></small> 
+      </div>
+  </div>
+
+<div>
+    <p>gasto 1</p>
+    <p>gasto 2</p>
+</div>
