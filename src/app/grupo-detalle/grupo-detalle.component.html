@@ -1,17 +1,26 @@
-<title>{{grupo.nombre}}</title>
+<h3>{{grupo.nombre}}</h3>
+<div class="container-h">
+  
+  <div class="container-v">
+    
 
-<div class="list-group" *ngFor="let miembro of miembros">
-      <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
-      <div class="d-flex gap-2 w-100 justify-content-between">
-        <div>
-          <h6 class="mb-0">{{miembro.usuario}}</h6>
-          <p class="mb-0 opacity-75">{{miembro.nombre}}</p>
+    <div class="list-group" *ngFor="let miembro of miembros">
+      <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+        <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+        <div class="d-flex gap-2 w-100 justify-content-between">
+          <div>
+            <h6 class="mb-0">{{miembro.usuario}}</h6>
+            <p class="mb-0 opacity-75">{{miembro.nombre}}</p>
+          </div>
+          <small class="opacity-50 text-nowrap"></small>
         </div>
-        <small class="opacity-50 text-nowrap"></small> 
       </div>
+    </div>
   </div>
-
-<div>
-    <p>gasto 1</p>
-    <p>gasto 2</p>
+  <div class="container-v">
+    <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+      <p>gasto 1</p>
+      <p>gasto 2</p>
+    </div>
+  </div>
 </div>
