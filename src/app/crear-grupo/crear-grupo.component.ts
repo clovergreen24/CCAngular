@@ -16,11 +16,11 @@ export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
-   // categoria: new FormControl('', Validators.required)
+    // categoria: new FormControl('', Validators.required)
 
   });
 
-  constructor(private grupoService: GrupoService,  private router: Router) { }
+  constructor(private grupoService: GrupoService, private router: Router) { }
 
   onCrearGrupo() {
     if (this.grupoForm.valid) {
@@ -29,10 +29,10 @@ export class CrearGrupoComponent {
       const tokenData = jwt_decode.jwtDecode(String(usuario));
       let username = tokenData.sub as String;
 
-      this.grupoService.crearGrupo(username, reg).subscribe(() =>{
-      this.router.navigate([username + "/misGrupos"]); 
-    });
-      
+      this.grupoService.crearGrupo(username, reg).subscribe(() => {
+        this.router.navigate([username + "/misGrupos"]);
+      });
+
     }
   }
 
