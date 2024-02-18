@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { CrearGrupo } from '../model/crearGrupo.interface';
+import { GrupoService } from '../service/grupo.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class CrearGrupoComponent {
 
   });
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private grupoService: GrupoService,  private router: Router) { }
 
   onCrearGrupo() {
     if (this.grupoForm.valid) {
@@ -28,7 +29,10 @@ export class CrearGrupoComponent {
       const tokenData = jwt_decode.jwtDecode(String(usuario));
       let username = tokenData.sub as String;
 
-      this.usuarioService.crearGrupo(username, reg);
+      this.grupoService.crearGrupo(username, reg).subscribe(() =>{
+      this.router.navigate([username + "/misGrupos"]); 
+    });
+      
     }
   }
 

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Grupo } from '../model/grupo.interface';
 import { UsuarioService } from './usuario.service';
+import { CrearGrupo } from '../model/crearGrupo.interface';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +18,18 @@ export class GrupoService {
 
   getGruposDeUsuario(username: string): Observable<Grupo[]>{
     let grupos = this.usuarioService.getGrupos(username);
-    return grupos
+    return grupos;
   }
 
   public getGrupo(id: string | null){
-    return this.http.get<Grupo>(this.urlApi + '/' + id)
+    return this.http.get<Grupo>(this.urlApi + '/' + id);
+  }
+
+  crearGrupo(username: String, form: CrearGrupo): Observable<Grupo>{
+    console.log("estoy por crear un grupo");
+    console.log(this.urlApi + "/" + username + "/crearGrupo", form);
+    return this.http.post<Grupo>(this.urlApi + "/" + username + "/crearGrupo", form,   { withCredentials: true });
+    
   }
 }
+   
