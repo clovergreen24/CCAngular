@@ -1,9 +1,10 @@
+import { Grupo } from './../model/grupo.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { Usuario } from '../model/usuario.interface';
-import { Grupo } from '../model/grupo.interface';
 import * as jwt_decode from 'jwt-decode';
+import { CrearGrupo } from '../model/crearGrupo.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,12 @@ export class UsuarioService {
   getGrupos(username: string): Observable<Grupo[]>{
     console.log("llegue a usuario service");
     
-    return this.http.get<Grupo[]>(this.usuarioUrl + "/" +username + "/grupos");
+    return this.http.get<Grupo[]>(this.usuarioUrl + "/" + username + "/grupos");
+  }
+
+  crearGrupo(username: String, form: CrearGrupo){
+    console.log("estoy por crear un grupo");
+    
+    this.http.post<Grupo[]>(this.usuarioUrl + "/" + username + "/crearGrupo", form,  { withCredentials: true });
   }
 }

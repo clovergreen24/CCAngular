@@ -20,7 +20,7 @@ export class RegistrarseComponent implements OnInit {
       nombre: new FormControl ('', Validators.required),
       contrasenia: new FormControl ('', Validators.required),
       email: new FormControl ('', Validators.required),
-      foto: new FormControl ('') // Puedes agregar validadores según tus necesidades
+      foto: new FormControl ('') 
     });
 
 
