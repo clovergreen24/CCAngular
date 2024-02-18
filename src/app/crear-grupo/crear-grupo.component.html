@@ -1,1 +1,17 @@
-<p>Crear Grupo</p>
+<div class="form-container">
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="assets/logo.png" id="icon" alt="User Icon" />
+    </div>
+  <form [formGroup]="grupoForm" (ngSubmit)="onCrearGrupo()">
+     <div class="form-group">
+      <label for="nombre">Nombre Del Grupo</label>
+      <input type="text" id="nombre" formControlName="nombre">
+    </div>
+    <div class="form-group">
+        <label for="foto">Imagen</label>
+        <input type="text" id="imagen" formControlName="imagen">
+      </div>
+    <button type="submit">Crear Grupo</button>
+  </form>
+</div>
