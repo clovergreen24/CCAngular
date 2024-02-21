@@ -9,6 +9,7 @@ import { CrearGrupo } from '../model/crearGrupo.interface';
 import { UsuarioService } from '../service/usuario.service';
 import * as jwt_decode from 'jwt-decode';
 import { Location } from '@angular/common';
+import { CategoriaService } from '../service/categoria.service';
 
 @Component({
   selector: 'app-actualizar-grupo',
@@ -29,7 +30,7 @@ export class ActualizarGrupoComponent {
   misAmigos: Usuario[] = [];
   username: string = "";
  
-  constructor(private grupoService: GrupoService, private usuario: UsuarioService, private router: Router, private location: Location, private route: ActivatedRoute) {
+  constructor(private grupoService: GrupoService, private cat: CategoriaService, private usuario: UsuarioService, private router: Router, private location: Location, private route: ActivatedRoute) {
 
   }
 
@@ -49,6 +50,7 @@ export class ActualizarGrupoComponent {
     this.llenarAmigos();
     const idGrupo = this.route.snapshot.paramMap.get('id');
     this.grupoService.getGrupo(idGrupo).subscribe(grupo => { this.grupo = grupo});
+    this.llenarCategorias();
   }
 
   onActualizarGrupo() {
@@ -70,5 +72,16 @@ export class ActualizarGrupoComponent {
       this.misAmigos.pop();
       this.misAmigos = amigos;
     });
+  }
+
+  llenarCategorias() {
+    this.cat.getCategoriasDeGrupos().subscribe(
+      (categorias: Categoria[]) => {
+        this.categorias = categorias;
+      },
+      (error) => {
+        console.error('Error al cargar categorías:', error);
+      }
+    );
   }
 }

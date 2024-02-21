@@ -19,7 +19,7 @@ export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
-    categoria: new FormControl(null),
+    categoria: new FormControl(null, Validators.required),
     amigos: new FormControl()
 
   });
@@ -27,53 +27,56 @@ export class CrearGrupoComponent {
   username: string = "";
   misAmigos: Usuario[] = [];
 
-  constructor(private grupoService: GrupoService, private router: Router, private cat: CategoriaService, private usuario: UsuarioService ) { }
-  
+  constructor(private grupoService: GrupoService, private router: Router, private cat: CategoriaService, private usuario: UsuarioService) { }
+
   ngOnInit(): void {
-  this.cat.getCategoriasDeGrupos().subscribe(
-    (categorias: Categoria[]) => {
-      this.categorias = categorias;
-    },
-    (error) => {
-      console.error('Error al cargar categorías:', error);
-    }  
-  );
-  this.llenarAmigos();
+    this.llenarCategorias();
+    this.llenarAmigos();
   }
 
   onCrearGrupo() {
     if (this.grupoForm.valid) {
       const reg = this.grupoForm.value as CrearGrupo;
-      
-    
+
+
       const categoriaSeleccionada = this.categorias.find(c => c.idCategoria === reg.categoria);
       reg.categoria = categoriaSeleccionada;
-      
+
       let usuario = localStorage.getItem("currentUser" || '');
       const tokenData = jwt_decode.jwtDecode(String(usuario));
       let username = tokenData.sub as String;
-      
-     
+
+
       this.grupoService.crearGrupo(username, reg).subscribe(() => {
-      this.router.navigate([username + "/misGrupos"]);
+        this.router.navigate([username + "/misGrupos"]);
       });
 
     }
   }
-    llenarAmigos() {
-      let usuario = localStorage.getItem("currentUser" || '');
-      const tokenData= jwt_decode.jwtDecode(String(usuario));
-      this.username = tokenData.sub as string;
-      this.usuario.getAmigos(this.username).subscribe(amigos => {
-        this.misAmigos.pop();
-        this.misAmigos = amigos;
-      })
-    }
+  llenarAmigos() {
+    let usuario = localStorage.getItem("currentUser" || '');
+    const tokenData = jwt_decode.jwtDecode(String(usuario));
+    this.username = tokenData.sub as string;
+    this.usuario.getAmigos(this.username).subscribe(amigos => {
+      this.misAmigos.pop();  
+      this.misAmigos = amigos;
+    })
+  }
 
-  
- //getCategoria(id: Number  ){
-  //this.cat.getCategoria(id);
- //}
-    
+  llenarCategorias() {
+    this.cat.getCategoriasDeGrupos().subscribe(
+      (categorias: Categoria[]) => {
+        this.categorias = categorias;
+      },
+      (error) => {
+        console.error('Error al cargar categorías:', error);
+      }
+    );
+  }
+
+  getCategoria(id: Number | undefined ){
+  this.cat.getCategoria(id);
+  }
+
 
 }   
