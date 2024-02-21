@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Grupo } from '../model/grupo.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GrupoService } from '../service/grupo.service';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-grupo-detalle',
@@ -11,6 +12,7 @@ import { GrupoService } from '../service/grupo.service';
 })
 export class GrupoDetalleComponent {
   grupo: Grupo = { idGrupo: 0, nombre: '', categoria: {}, gastos: [], imagen: '', integrantes: [], saldos: [], pagos: []};
+  username: string = "";
 
   constructor(
     private router: Router,
@@ -24,5 +26,11 @@ ngOnInit(){
 }
 
 
+redirectActualizarGrupo() {
+  let usuario = localStorage.getItem("currentUser" || '');
+const tokenData= jwt_decode.jwtDecode(String(usuario));
+this.username = tokenData.sub as string;
+this.router.navigate([this.username, this.grupo.idGrupo, 'actualizarGrupo']);  
+}
 
 }

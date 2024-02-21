@@ -32,4 +32,9 @@ export class UsuarioService {
     
     return this.http.get<Grupo[]>(this.usuarioUrl + "/" +username + "/grupos");
   }
+
+  getAmigos(username: string): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(this.usuarioUrl+ "/" +username + "/amigos");
+  }
+
 }

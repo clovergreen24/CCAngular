@@ -46,4 +46,6 @@ export class GrupoComponent implements OnInit {
     this.username = tokenData.sub as string;
     this.router.navigate([this.username, 'crearGrupo']);  
 }
+
+
 }

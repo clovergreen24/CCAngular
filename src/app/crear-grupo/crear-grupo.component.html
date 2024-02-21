@@ -12,6 +12,22 @@
         <label for="foto">Imagen</label>
         <input type="text" id="imagen" formControlName="imagen">
       </div>
+      <div class="form-group">
+        <label for="categoria">Categoría</label>
+        <select id="categoria" formControlName="categoria">
+            <ng-container *ngFor="let categoria of categorias">
+                <option *ngIf="categoria.tipo === 'grupo'" [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
+            </ng-container>
+        </select>
+    </div>
+    <!-- Nuevo select para los amigos -->
+    <div class="form-group">
+      <label for="amigos">Amigos</label>
+      <select id="amigos" formControlName="amigos">
+        <option *ngFor="let amigo of misAmigos" [value]="amigo.idUsuario" >{{ amigo.nombre }}</option>
+      </select>
+  </div>
     <button type="submit">Crear Grupo</button>
   </form>
 </div>
+

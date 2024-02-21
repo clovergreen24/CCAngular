@@ -1,10 +1,13 @@
 import { UsuarioService } from './../service/usuario.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { CrearGrupo } from '../model/crearGrupo.interface';
 import { GrupoService } from '../service/grupo.service';
+import { Categoria } from '../model/categoria.interface';
+import { CategoriaService } from '../service/categoria.service';
+import { Usuario } from '../model/usuario.interface';
 
 
 @Component({
@@ -16,24 +19,61 @@ export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
-    // categoria: new FormControl('', Validators.required)
+    categoria: new FormControl(null),
+    amigos: new FormControl()
 
   });
+  categorias: Categoria[] = [];
+  username: string = "";
+  misAmigos: Usuario[] = [];
 
-  constructor(private grupoService: GrupoService, private router: Router) { }
+  constructor(private grupoService: GrupoService, private router: Router, private cat: CategoriaService, private usuario: UsuarioService ) { }
+  
+  ngOnInit(): void {
+  this.cat.getCategoriasDeGrupos().subscribe(
+    (categorias: Categoria[]) => {
+      this.categorias = categorias;
+    },
+    (error) => {
+      console.error('Error al cargar categorías:', error);
+    }  
+  );
+  this.llenarAmigos();
+  }
 
   onCrearGrupo() {
     if (this.grupoForm.valid) {
       const reg = this.grupoForm.value as CrearGrupo;
+      
+    
+      const categoriaSeleccionada = this.categorias.find(c => c.idCategoria === reg.categoria);
+      reg.categoria = categoriaSeleccionada;
+      
       let usuario = localStorage.getItem("currentUser" || '');
       const tokenData = jwt_decode.jwtDecode(String(usuario));
       let username = tokenData.sub as String;
-
+      
+     
       this.grupoService.crearGrupo(username, reg).subscribe(() => {
-        this.router.navigate([username + "/misGrupos"]);
+      this.router.navigate([username + "/misGrupos"]);
       });
 
     }
   }
+    llenarAmigos() {
+      let usuario = localStorage.getItem("currentUser" || '');
+      const tokenData= jwt_decode.jwtDecode(String(usuario));
+      this.username = tokenData.sub as string;
+      this.usuario.getAmigos(this.username).subscribe(amigos => {
+        this.misAmigos.pop();
+        this.misAmigos = amigos;
+      })
+    }
 
-}
+  
+ //getCategoria(id: Number  ){
+  //this.cat.getCategoria(id);
+ //}
+    
+
+}   

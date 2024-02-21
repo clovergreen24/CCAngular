@@ -16,6 +16,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { CrearGrupoComponent } from './crear-grupo/crear-grupo.component';
+import { ActualizarGrupoComponent } from './actualizar-grupo/actualizar-grupo.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CrearGrupoComponent } from './crear-grupo/crear-grupo.component';
     RegistrarseComponent,
     RegistrarseDetalleComponent,
     GrupoDetalleComponent,
-    CrearGrupoComponent, 
+    CrearGrupoComponent,
+    ActualizarGrupoComponent, 
   ],
   imports: [
     BrowserModule,
