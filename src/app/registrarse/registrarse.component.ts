@@ -31,24 +31,7 @@ export class RegistrarseComponent implements OnInit {
        
   }
 
-  //onRegister(){                                             //comente probando
-    //if (this.registerForm.valid) {                                //comente probando
-     // const reg = this.registerForm.value as Registrarse;                      //comente probando
-     // this.registrarseService.registrarUsuario(reg).subscribe(data => console.log(data));         //comente probando
-      //(
-       // (response) => {
-        //  console.log('Usuario registrado exitosamente:', response);
-          // Puedes agregar redirección u otras acciones después de registrar
-       // },
-        //(error) => {
-         // console.error('Error al registrar usuario:', error);
-          // Manejar errores según sea necesario
-       // }
-      //);
-   // }                                   //comente probando
-  //}   //comente probando
-
-  
+ 
   onRegister() {
     if (this.registerForm.valid) {
       const reg = this.registerForm.value as Registrarse; 

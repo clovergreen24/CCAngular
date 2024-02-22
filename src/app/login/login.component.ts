@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
 import { first } from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
+import { LoginErrorComponent } from '../login-error/login-error.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +32,9 @@ export class LoginComponent implements OnInit {
     private login: LoginService,
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
-    private router: Router,) { }
+    private router: Router,
+    private dialog: MatDialog) { }
+
   ngOnInit(): void {
     // elimino las credenciales del usuario, si es que existen
     this.authenticationService.logout();
@@ -39,7 +43,7 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.loginForm.controls; }
 
-  onLogin() {                          
+  onLogin() {
     const form = this.loginForm.value as Login;
     this.authenticationService.login(this.f.usuario.value, this.f.contrasenia.value)
       .pipe(first())
@@ -50,17 +54,33 @@ export class LoginComponent implements OnInit {
           let username = tokenData.sub as String;
 
           // Construye la URL de redirección utilizando el username
-          const returnUrl = `/${username}`;                           //tengo que agregarle el jwt? 
+          const returnUrl = `/${username}`;
+
 
           // Redirige al usuario a la URL construida
           this.router.navigate([returnUrl]); //esta variable la podes usar para redireccionar al home
           console.log(this.authenticationService.currentUserValue); //esto es para mirar en la consola del navegador si se genero
         },
-        () => {
+        (error) => {
+
           this.error = 'Nombre de usuario o Contraseña incorrectas';
+          this.openDialog(this.error);
           this.loading = false;
+
         });
+
 
   }
 
+  openDialog(error: string): void {
+    this.dialog.open(LoginErrorComponent, {
+      width: '250px',
+      data: { error: error } // Pasa el mensaje de error al MatDialog
+    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    //console.log('The dialog was closed');
+    // });
+  }
 }
+
