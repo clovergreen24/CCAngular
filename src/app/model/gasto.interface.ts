@@ -4,14 +4,15 @@ import { Usuario } from './usuario.interface';
 import { Saldo } from './saldo.interface';
 
 export interface Gasto {
-    idGasto: BigInt;
-    monto: number;
+    idGasto: Number;
+    nombre: string;
+    monto: Number;
     fecha: Date;
-    imagen: Text;
+    imagen: string;
     tipoDivision: number;
-    categoria: Categoria;
-    grupo: Grupo;
-    usuario: Usuario;
-    saldos: Saldo[]  
+    categoria?: Categoria;
+    grupo?: Grupo;
+    usuario?: Usuario;
+    saldos?: Saldo[]  
 
 }

@@ -1,5 +1,5 @@
 export interface Categoria {
-    idCategoria?: BigInt;
+    idCategoria?: Number;
     tipo?: String;
     imagen?: Text;
     nombre?: String

@@ -17,7 +17,7 @@ export class LoginService {
   login(form: Login) {
     this.http.post<Usuario>(this.loginUrl, form,  { withCredentials: true }).subscribe(data => {
       if (data) {
-        localStorage.setItem("idUsuario", data.idUsuario.toString());
+        localStorage.setItem("idUsuario", String(data.idUsuario as number));
         this.router.navigate(["usuario/" + data.idUsuario])
 
       }
