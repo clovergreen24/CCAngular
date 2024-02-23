@@ -33,14 +33,17 @@ export class ActualizarGastoComponent {
   onActualizarGasto(){
     const id = this.route.snapshot.params['id'];
     let nombreg = this.nombreGasto.value as string
-  //let cat = this.categorias?.find(cat => cat.idCategoria = Number(this.categoriaGasto.value))
+  let cat = this.categorias?.find(cat => cat.idCategoria = Number(this.categoriaGasto.value))
+ console.log(nombreg);
   this.gasto.nombre=nombreg
-  //this.gasto.categoria=cat
+  this.gasto.categoria=cat
   this.gasto.usuario=this.usuario
   this.gasto.grupo=this.grupo
   this.gasto.monto=Number(this.montoGasto.value)
+  console.log(this.gasto);
     this.grupoService.actualizarGasto(id, this.gasto).subscribe(() =>{
       console.log('se actualizo el gasto ' + id)
+
    
     });
 

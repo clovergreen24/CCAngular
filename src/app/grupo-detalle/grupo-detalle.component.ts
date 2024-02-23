@@ -26,7 +26,7 @@ export class GrupoDetalleComponent {
   crear: boolean=false
   usuario?: Usuario
   nombreGasto= new FormControl('')
-  categoriaGasto = new FormControl('')
+  categoriaGasto = new FormControl()
   montoGasto = new FormControl('')
   gasto: Gasto = { idGasto:0, nombre:'', categoria:{}, monto:0, fecha: new Date(), imagen:'', tipoDivision: 1, usuario: this.usuario}
   username: string = "";

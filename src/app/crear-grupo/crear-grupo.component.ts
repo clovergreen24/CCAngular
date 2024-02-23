@@ -19,7 +19,7 @@ export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
-    categoria: new FormControl(null,  Validators.required),
+    categoria: new FormControl(null),
     amigos: new FormControl()
 
   });
@@ -41,8 +41,8 @@ export class CrearGrupoComponent {
       
       //console.log('quetiene ' + reg.categoria);
 
-      //const categoriaSeleccionada = this.categorias.find(c => c.idCategoria === reg.categoria);
-      //reg.categoria = categoriaSeleccionada;
+      const categoriaSeleccionada = this.categorias.find(c => c.idCategoria === reg.categoria);
+      reg.categoria = categoriaSeleccionada;
      
 
       let usuario = localStorage.getItem("currentUser" || '');

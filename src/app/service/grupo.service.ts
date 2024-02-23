@@ -54,9 +54,9 @@ export class GrupoService {
     return this.http.get<Categoria[]>('http://localhost:8080/jwt/categoria')
   }
 
-  createGasto(id: string | null,gasto: Gasto){
+  createGasto(id: string | null,gasto: Gasto): Observable<any>{
     console.log("grupo service")
-    return this.http.post<Grupo>(this.urlApi + '/' + id + '/agregarGasto', gasto)
+    return this.http.post<Grupo>(this.urlApi + '/' + id + '/agregarGasto', gasto);
   }
 
   actualizarGasto(id: string, form: Gasto){
