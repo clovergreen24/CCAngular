@@ -9,6 +9,7 @@ import { RegistrarseComponent } from './registrarse/registrarse.component';
 import { GrupoComponent } from './grupo/grupo.component';
 import { CommonModule } from '@angular/common';
 import { GrupoDetalleComponent } from './grupo-detalle/grupo-detalle.component';
+import { CrearGrupoComponent } from './crear-grupo/crear-grupo.component';
 
 
 
@@ -17,7 +18,7 @@ const routes: Routes = [
 
   {path:'login', component:LoginComponent},
   {path: 'registrarse', component:RegistrarseComponent},
-
+  {path: ':username/crearGrupo', component: CrearGrupoComponent } ,
   {path: ':username', component: UsuarioComponent},
   {path:':username/misGrupos', component:GrupoComponent},
   {path:':username/misGrupos/grupoDetalle/:id', component:GrupoDetalleComponent}

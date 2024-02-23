@@ -1,4 +1,5 @@
 <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+  <button type="button" class="btn btn-success" (click)="redirectCrearGrupo()">Crear Grupo</button>
     <div class="titulo" *ngIf="misGrupos.length>0; else sinGrupos">
         Estos son tus grupos
     </div>
@@ -19,4 +20,4 @@
         </div>
       </a>
     </div>
-</div>
+</div>   

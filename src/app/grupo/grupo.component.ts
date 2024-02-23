@@ -5,7 +5,7 @@ import { Grupo } from '../model/grupo.interface';
 import { Categoria } from '../model/categoria.interface';
 import { UsuarioService } from '../service/usuario.service';
 import * as jwt_decode  from 'jwt-decode';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LocalizedString } from '@angular/compiler';
 
 @Component({
@@ -23,7 +23,7 @@ export class GrupoComponent implements OnInit {
 
   
   
-  constructor(private grupoService: GrupoService) {
+  constructor(private grupoService: GrupoService, private router: Router) {
 
     }
 
@@ -40,4 +40,11 @@ export class GrupoComponent implements OnInit {
       this.misGrupos = grupos;
     })
   }
+
+  redirectCrearGrupo() {
+    let usuario = localStorage.getItem("currentUser" || '');
+    const tokenData= jwt_decode.jwtDecode(String(usuario));
+    this.username = tokenData.sub as string;
+  this.router.navigate([this.username, 'crearGrupo']);  
+}
 }
