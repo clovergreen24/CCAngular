@@ -2,9 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Grupo } from '../model/grupo.interface';
+import { Usuario } from '../model/usuario.interface';
 import { UsuarioService } from './usuario.service';
+
 import { CrearGrupo } from '../model/crearGrupo.interface';
 import { Router } from '@angular/router';
+
+import { Gasto } from '../model/gasto.interface';
+
 import { Categoria } from '../model/categoria.interface';
 
 @Injectable({
@@ -22,11 +27,8 @@ export class GrupoService {
     return grupos;
   }
 
-  public getGrupo(id: string | null){
-    return this.http.get<Grupo>(this.urlApi + '/' + id);
-  }
 
-  crearGrupo(username: String, form: CrearGrupo): Observable<Grupo>{
+   crearGrupo(username: String, form: CrearGrupo): Observable<Grupo>{
     console.log("estoy por crear un grupo");
     console.log(this.urlApi + "/" + username + "/crearGrupo", form);
     return this.http.post<Grupo>(this.urlApi + "/" + username + "/crearGrupo", form);
@@ -35,6 +37,26 @@ export class GrupoService {
 
   actualizarGrupo(id: string, form: CrearGrupo){
    return this.http.put<Grupo>(this.urlApi + '/' + id, form);
+  }
+  getGrupo(id: string | null){
+    return this.http.get<Grupo>(this.urlApi + '/' + id)
+  }
+
+  getIntegrantes(id: string | null):Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(this.urlApi + '/' + id + '/miembros')
+  }
+
+  getGastos(id: string | null):Observable<Gasto[]>{
+    return this.http.get<Gasto[]>(this.urlApi + '/' + id + '/gastos') 
+  }
+
+  getCategorias(){
+    return this.http.get<Categoria[]>('http://localhost:8080/jwt/categoria')
+  }
+
+  createGasto(id: string | null,gasto: Gasto){
+    console.log("grupo service")
+    return this.http.post<Grupo>(this.urlApi + '/' + id + '/agregarGasto', gasto)
   }
 
   
