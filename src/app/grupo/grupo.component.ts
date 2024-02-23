@@ -36,7 +36,7 @@ export class GrupoComponent implements OnInit {
     const tokenData= jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
     this.grupoService.getGruposDeUsuario(this.username).subscribe(grupos => {
-      this.misGrupos.pop();
+      
       this.misGrupos = grupos;
     })
   }

@@ -3,7 +3,7 @@
     <div class="fadeIn first">
       <img src="assets/logo.png" id="icon" alt="User Icon" />
     </div>
-  <form [formGroup]="grupoForm" (ngSubmit)="onCrearGrupo()">
+  <form [formGroup]="grupoForm">
      <div class="form-group">
       <label for="nombre">Nombre Del Grupo</label>
       <input type="text" id="nombre" formControlName="nombre">
@@ -17,18 +17,21 @@
         <label for="categoria">Categoría</label>
         <select id="categoria" formControlName="categoria">
             <ng-container *ngFor="let categoria of categorias">
-                <option *ngIf="categoria.tipo === 'grupo'" [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
+                <option  [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
             </ng-container>
         </select>
     </div>
     <!-- Nuevo select para los amigos -->
-    <div class="form-group">
+    
       <label for="amigos">Amigos</label>
-      <select id="amigos" formControlName="amigos">
-        <option *ngFor="let amigo of misAmigos" [value]="amigo.idUsuario" >{{ amigo.usuario }}</option>
-      </select>
-  </div>
-    <button type="submit">Crear Grupo</button>
+      
+        <div *ngIf="dropdownList.length==0"></div>
+        <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList">
+
+        </ng-multiselect-dropdown>
+      
+  
+    <button (click)="onCrearGrupo()">Crear Grupo</button>
   </form>
 </div>
 

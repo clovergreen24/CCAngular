@@ -28,10 +28,9 @@ export class GrupoService {
   }
 
 
-   crearGrupo(username: String, form: CrearGrupo): Observable<Grupo>{
+   crearGrupo(username: String, idC:string, integrantes: Usuario[], form: CrearGrupo): Observable<Grupo>{
     console.log("estoy por crear un grupo");
-    console.log(this.urlApi + "/" + username + "/crearGrupo", form);
-    return this.http.post<Grupo>(this.urlApi + "/" + username + "/crearGrupo", form);
+    return this.http.post<Grupo>(this.urlApi + "/crearGrupo", {form,idC,username,integrantes});
     
   }
 

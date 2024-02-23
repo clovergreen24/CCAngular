@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsuarioComponent } from './usuario/usuario.component';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { RegistrarseComponent } from './registrarse/registrarse.component';
@@ -39,8 +39,8 @@ import { LoginErrorComponent } from './login-error/login-error.component';
     FormsModule,
     HttpClientModule,
     MatDialogModule,
-    RouterModule.forRoot([])
-    
+    RouterModule.forRoot([]),
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
