@@ -59,6 +59,7 @@ export class ActualizarGrupoComponent {
       const datosActualizados = this.grupoForm.value as CrearGrupo;
       this.grupoService.actualizarGrupo(id, datosActualizados).subscribe(() => {
         //this.router.navigate(['/']); // Redirigir a la página principal u otra página deseada después de la actualización
+        console.log('se actualizo grupo ');
         this.location.back();     
       });
     }

@@ -19,7 +19,7 @@ export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
-    categoria: new FormControl(null, Validators.required),
+    categoria: new FormControl( Validators.required),
     amigos: new FormControl()
 
   });
@@ -48,6 +48,7 @@ export class CrearGrupoComponent {
 
 
       this.grupoService.crearGrupo(username, reg).subscribe(() => {
+        console.log('se creo un grupo con nombre ' + reg.nombre);
         this.router.navigate([username + "/misGrupos"]);
       });
 
