@@ -5,6 +5,7 @@ import { Saldo } from './saldo.interface';
 
 export interface Gasto {
     idGasto: Number;
+
     nombre: string;
     monto: Number;
     fecha: Date;
@@ -14,5 +15,6 @@ export interface Gasto {
     grupo?: Grupo;
     usuario?: Usuario;
     saldos?: Saldo[]  
+
 
 }

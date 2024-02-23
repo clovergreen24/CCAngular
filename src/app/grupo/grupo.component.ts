@@ -23,7 +23,7 @@ export class GrupoComponent implements OnInit {
 
   
   
-  constructor(private grupoService: GrupoService, private router: Router) {
+  constructor(private grupoService: GrupoService,  private router: Router) {
 
     }
 
@@ -40,11 +40,12 @@ export class GrupoComponent implements OnInit {
       this.misGrupos = grupos;
     })
   }
-
   redirectCrearGrupo() {
     let usuario = localStorage.getItem("currentUser" || '');
     const tokenData= jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
-  this.router.navigate([this.username, 'crearGrupo']);  
+    this.router.navigate([this.username, 'crearGrupo']);  
 }
+
+
 }

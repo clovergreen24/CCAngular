@@ -16,16 +16,21 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { CrearGrupoComponent } from './crear-grupo/crear-grupo.component';
+import { ActualizarGrupoComponent } from './actualizar-grupo/actualizar-grupo.component';
+import { LoginErrorComponent } from './login-error/login-error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    UsuarioComponent,
+    LoginErrorComponent, 
+    UsuarioComponent,    
     RegistrarseComponent,
     RegistrarseDetalleComponent,
     GrupoDetalleComponent,
-    CrearGrupoComponent, 
+    CrearGrupoComponent,
+    ActualizarGrupoComponent,
+    
   ],
   imports: [
     BrowserModule,

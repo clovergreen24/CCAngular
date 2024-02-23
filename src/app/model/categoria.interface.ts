@@ -1,6 +1,6 @@
 export interface Categoria {
     idCategoria?: Number;
-    tipo?: String;
-    imagen?: Text;
-    nombre?: String
-}
+
+    imagen?: string;
+    nombre?: string;
+    tipo?: string;

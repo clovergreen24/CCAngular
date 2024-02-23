@@ -3,12 +3,14 @@ import { Observable } from 'rxjs';
 import { Grupo } from '../model/grupo.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GrupoService } from '../service/grupo.service';
+
 import { UsuarioService } from '../service/usuario.service';
 import { Usuario } from '../model/usuario.interface';
 import { Gasto } from '../model/gasto.interface';
 import { Categoria } from '../model/categoria.interface';
 import { FormControl } from '@angular/forms';
 import * as jwt_decode  from 'jwt-decode';
+
 
 @Component({
   selector: 'app-grupo-detalle',
@@ -17,6 +19,7 @@ import * as jwt_decode  from 'jwt-decode';
 })
 export class GrupoDetalleComponent {
   grupo: Grupo = { idGrupo: 0, nombre: '', categoria: {}, gastos: [], imagen: '', integrantes: [], saldos: [], pagos: []};
+
   miembros?: Usuario[]
   gastos?: Gasto[]
   categorias?:Categoria[]
@@ -26,6 +29,7 @@ export class GrupoDetalleComponent {
   categoriaGasto = new FormControl('')
   montoGasto = new FormControl('')
   gasto: Gasto = { idGasto:0, nombre:'', categoria:{}, monto:0, fecha: new Date(), imagen:'', tipoDivision: 1, usuario: this.usuario}
+
 
   constructor(
     private router: Router,
@@ -65,5 +69,11 @@ onCreate(){
 }
 
 
+redirectActualizarGrupo() {
+  let usuario = localStorage.getItem("currentUser" || '');
+const tokenData= jwt_decode.jwtDecode(String(usuario));
+this.username = tokenData.sub as string;
+this.router.navigate([this.username, this.grupo.idGrupo, 'actualizarGrupo']);  
+}
 
 }
