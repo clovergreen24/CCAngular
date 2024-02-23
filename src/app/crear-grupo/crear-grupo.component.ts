@@ -1,5 +1,5 @@
 import { UsuarioService } from './../service/usuario.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, numberAttribute } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
@@ -19,10 +19,11 @@ export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
-    categoria: new FormControl( Validators.required),
+    categoria: new FormControl(null,  Validators.required),
     amigos: new FormControl()
 
   });
+
   categorias: Categoria[] = [];
   username: string = "";
   misAmigos: Usuario[] = [];
@@ -37,10 +38,12 @@ export class CrearGrupoComponent {
   onCrearGrupo() {
     if (this.grupoForm.valid) {
       const reg = this.grupoForm.value as CrearGrupo;
+      
+      //console.log('quetiene ' + reg.categoria);
 
-
-      const categoriaSeleccionada = this.categorias.find(c => c.idCategoria === reg.categoria);
-      reg.categoria = categoriaSeleccionada;
+      //const categoriaSeleccionada = this.categorias.find(c => c.idCategoria === reg.categoria);
+      //reg.categoria = categoriaSeleccionada;
+     
 
       let usuario = localStorage.getItem("currentUser" || '');
       const tokenData = jwt_decode.jwtDecode(String(usuario));

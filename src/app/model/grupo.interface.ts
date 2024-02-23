@@ -8,8 +8,8 @@ import { Usuario } from "./usuario.interface";
 
 export interface Grupo {
     idGrupo: Number,
-    nombre: String,
-    imagen: String,
+    nombre: string,
+    imagen: string,
     integrantes: Usuario[],
     categoria: Categoria,
     saldos: Saldo[],

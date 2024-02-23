@@ -40,8 +40,8 @@ export class ActualizarGrupoComponent {
       this.grupoService.getGrupo(id).subscribe(grupo => {
         // Llenar el formulario con los datos del grupo existente
         this.grupoForm.patchValue({
-          nombre: grupo.nombre.toString(),
-          imagen: grupo.imagen.toString(),
+          nombre: grupo.nombre,
+          imagen: grupo.imagen,
           categoria: null,
           amigos: null // Opcional: cargar los amigos del grupo si es necesario
         });

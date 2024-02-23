@@ -25,7 +25,7 @@
     <div class="form-group">
       <label for="amigos">Amigos</label>
       <select id="amigos" formControlName="amigos">
-        <option *ngFor="let amigo of misAmigos" [value]="amigo.idUsuario" >{{ amigo.nombre }}</option>
+        <option *ngFor="let amigo of misAmigos" [value]="amigo.idUsuario" >{{ amigo.usuario }}</option>
       </select>
   </div>
     <button type="submit">Crear Grupo</button>
