@@ -59,6 +59,9 @@ export class GrupoService {
     return this.http.post<Grupo>(this.urlApi + '/' + id + '/agregarGasto', gasto)
   }
 
+  actualizarGasto(id: string, form: Gasto){
+    return this.http.put<Gasto>('http://localhost:8080/jwt/gasto' + '/' + id, form);
+   }
   
 }
    

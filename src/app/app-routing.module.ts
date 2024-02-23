@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { GrupoDetalleComponent } from './grupo-detalle/grupo-detalle.component';
 import { CrearGrupoComponent } from './crear-grupo/crear-grupo.component';
 import { ActualizarGrupoComponent } from './actualizar-grupo/actualizar-grupo.component';
+import { ActualizarGastoComponent } from './actualizar-gasto/actualizar-gasto.component';
 
 
 
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: ':username', component: UsuarioComponent},
   {path:':username/misGrupos', component:GrupoComponent},
   {path:':username/misGrupos/grupoDetalle/:id', component:GrupoDetalleComponent},
-  {path:':username/:id/actualizarGrupo', component: ActualizarGrupoComponent}
+  {path:':username/:id/actualizarGrupo', component: ActualizarGrupoComponent},
+  {path: ':username/:id/actualizarGasto', component: ActualizarGastoComponent}
 
 
 ];

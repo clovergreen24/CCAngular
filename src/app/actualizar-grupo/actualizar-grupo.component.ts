@@ -65,6 +65,8 @@ export class ActualizarGrupoComponent {
     }
   }
 
+
+
   llenarAmigos() {
     let usuario = localStorage.getItem("currentUser" || '');
     const tokenData= jwt_decode.jwtDecode(String(usuario));
