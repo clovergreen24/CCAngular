@@ -1,0 +1,27 @@
+<div class="form-container">
+  <!-- Icon -->
+  <div class="fadeIn first">
+    <img src="assets/logo.png" id="icon" alt="User Icon" />
+  </div>
+  
+  <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+    <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+    <div class="d-flex gap-2 w-100 justify-content-between">
+      <div>
+        <form (ngSubmit)="onActualizarGasto()">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" [formControl]="nombreGasto">
+        <div>
+          <label for="nombre">Fecha</label>
+          <p class="mb-0 opacity-75">{{gasto.fecha}}</p>
+        </div>
+        <label for="nombre">Monto</label>
+        <input type="number" id="monto" [formControl]="montoGasto">
+        <button type="submit" class="btn btn-success">Actualizar</button>
+      </form>
+      </div>
+      <small class="opacity-50 text-nowrap"></small>
+    </div>
+
+  </div>
+</div>

@@ -1,9 +1,8 @@
-
 <h3>{{grupo.nombre}}</h3>
 <div class="container-h">
-  
+
   <div class="container-v">
-    
+
 
     <div class="list-group" *ngFor="let miembro of miembros">
       <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
@@ -12,12 +11,14 @@
           <div>
             <h6 class="mb-0">{{miembro.usuario}}</h6>
             <p class="mb-0 opacity-75">{{miembro.nombre}}</p>
+      
           </div>
           <small class="opacity-50 text-nowrap"></small>
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-success" (click)="redirectActualizarGrupo()">Actualizar Datos del Grupo</button>
+    <button type="button" class="btn btn-success" (click)="redirectActualizarGrupo()">Actualizar Datos del
+      Grupo</button>
   </div>
   <div class="container-v">
     <div class="list-group" *ngFor="let gasto of gastos">
@@ -28,7 +29,8 @@
             <h6 class="mb-0">{{gasto.nombre}}</h6>
             <p class="mb-0 opacity-75">{{gasto.fecha}}</p>
             <p class="mb-0 opacity-75">{{gasto.monto}}</p>
-            
+            <button type="button" class="btn btn-success" (click)="redirectActualizarGasto()">Actualizar</button> 
+
           </div>
           <small class="opacity-50 text-nowrap"></small>
         </div>
@@ -38,28 +40,39 @@
     <div [hidden]="!crear">
       <form (ngSubmit)="onCreate()">
         <div class="grid gap-4 mb-4 sm:grid-cols-2">
-            <div>
-                <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                <input type="text" [formControl]="nombreGasto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
-            </div>
-                <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
-                <select id="categoria" [formControl]="categoriaGasto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    
-                    
-                      <option *ngFor="let cat of categorias" [value]="cat.idCategoria">{{cat.nombre}}</option>
-                    
-                </select>
-            </div>
-            <div>
-              <label for="monto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Monto</label>
-              <input type="text" [formControl]="montoGasto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+          <div>
+            <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+            <input type="text" [formControl]="nombreGasto"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              placeholder="Type product name" required="">
           </div>
+          <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
+          <select id="categoria" [formControl]="categoriaGasto"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+
+
+            <ng-container *ngFor="let categoria of categorias">
+              <option *ngIf="categoria.tipo === 'gasto'" [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
+            </ng-container>
+          </select>
+        </div>
+        <div>
+          <label for="monto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Monto</label>
+          <input type="text" [formControl]="montoGasto"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Type product name" required="">
+        </div>
         <button type="submit">Enviar</button>
-        <button type="submit" class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-            Crear gasto
+        <button type="submit"
+          class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+          <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+              clip-rule="evenodd"></path>
+          </svg>
+          Crear gasto
         </button>
-    </form>
+      </form>
     </div>
   </div>
 </div>

@@ -12,7 +12,7 @@ export class CategoriaService {
   constructor(private http: HttpClient) { }
 
   getCategoriasDeGrupos(): Observable<Categoria[]>{
-      return this.http.get<Categoria[]>(this.urlApi + "/categorias", { withCredentials: true });
+      return this.http.get<Categoria[]>(this.urlApi , { withCredentials: true });
   }
 
   getCategoria(id: Number | undefined): Observable<Categoria>{
