@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{ data.type === 'success' ? 'Registro Exitoso' : 'Error al Registrar' }}</h1>
+<div mat-dialog-content>
+  <p *ngIf="data.type === 'success'">¡El usuario {{ data.username }} ha sido registrado exitosamente!</p>
+  <p *ngIf="data.type === 'error'">El nombre de usuario {{ data.username }} ya está en uso. Por favor, elija otro nombre de usuario.</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="'close'">Cerrar</button>
+</div>

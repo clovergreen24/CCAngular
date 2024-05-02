@@ -2,8 +2,8 @@ import { Grupo } from './grupo.interface';
 import { Usuario } from './usuario.interface';
 
 export interface Pago {
-    idPago: BigInt;
-    /*monto: Decimal;*/
+    idPago: Number;
+    monto: Number;
     grupo: Grupo;
     usuario: Usuario;
     usuarioDestino: Usuario

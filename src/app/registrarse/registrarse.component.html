@@ -1,0 +1,38 @@
+<!-- registrarse.component.html -->
+
+<div class="form-container">
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="assets/logo.png" id="icon" alt="User Icon" />
+    </div>
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <div class="form-group">
+      <label for="usuario">Usuario</label>
+      <input type="text" id="usuario" formControlName="usuario">
+    </div>
+
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" formControlName="nombre">
+    </div>
+
+    <div class="form-group">
+      <label for="contrasenia">Contraseña</label>
+      <input type="password" id="contrasenia" formControlName="contrasenia">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" formControlName="email">
+    </div>
+
+    <div class="form-group">
+      <label for="foto">Foto</label>
+      <input type="file" id="imagen" formControlName="foto" accept="image/*">
+  </div>
+  
+
+    <button type="submit">Registrarse</button>
+  </form>
+</div>
+

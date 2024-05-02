@@ -1,20 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
-import 'rxjs/add/observable/of';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'my-auth-token'
-  })
-};
+import { Observable, catchError, of } from 'rxjs';
+import { Usuario } from '../model/usuario.interface';
+import { Grupo } from '../model/grupo.interface';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  usuarioUrl = 'localhost:8080/usuario';
+  usuarioUrl: string = "http://localhost:8080/jwt/usuario"
 
   constructor(private http: HttpClient) { }
 
@@ -25,4 +20,21 @@ export class UsuarioService {
           return Observable.of([])})
       );
   }*/
+
+  
+  getUsuario(username: string): Observable<Usuario> {
+    const url = `${this.usuarioUrl}/username/${username}`;
+    return this.http.get<Usuario>(url, { withCredentials: true });
+  }
+  
+  getGrupos(username: string): Observable<Grupo[]>{
+    console.log("llegue a usuario service");
+    
+    return this.http.get<Grupo[]>(this.usuarioUrl + "/" +username + "/grupos");
+  }
+
+  getAmigos(username: string): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(this.usuarioUrl+ "/" +username + "/amigos");
+  }
+
 }

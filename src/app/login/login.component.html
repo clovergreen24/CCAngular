@@ -10,13 +10,14 @@
       <!-- Login Form -->
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <input type="text" id="login" class="fadeIn second" placeholder="usuario" formControlName="usuario">
-        <input type="password" id="password" class="fadeIn third" placeholder="contraseña" formControlName="password">
+        <input type="password" id="password" class="fadeIn third" placeholder="contraseña" formControlName="contrasenia">
         <input type="submit" class="fadeIn fourth" value="Ingresar">
       </form>
   
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <a class="underlineHover" href="#">Olvido su contraseña?</a>
+        <div><a class="underlineHover" href="#">Olvido su contraseña?</a></div>
+        <a class="underlineHover" href="http://localhost:4200/registrarse">Registrarse</a>
       </div>
   
     </div>
