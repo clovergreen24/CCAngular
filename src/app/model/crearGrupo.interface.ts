@@ -5,7 +5,7 @@ export interface CrearGrupo {
     nombre: string;
     imagen: string;
   //  integrantes: Usuario[],
-    categoria?: Categoria;
+    categoriaid?: number;
   //  saldos: Saldo[],
     //gastos: Gasto[],
     //pagos: Pago[]

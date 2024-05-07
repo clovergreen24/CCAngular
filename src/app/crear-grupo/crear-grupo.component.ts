@@ -41,8 +41,8 @@ export class CrearGrupoComponent {
       
       //console.log('quetiene ' + reg.categoria);
 
-      const categoriaSeleccionada = this.categorias.find(c => c.idCategoria === reg.categoria);
-      reg.categoria = categoriaSeleccionada;
+      const categoriaSeleccionada = this.categorias.find(c => c.idCategoria === reg.categoriaid)?.idCategoria;
+      reg.categoriaid = categoriaSeleccionada as number;
      
 
       let usuario = localStorage.getItem("currentUser" || '');
