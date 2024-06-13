@@ -19,6 +19,7 @@ import { CrearGrupoComponent } from './crear-grupo/crear-grupo.component';
 import { ActualizarGrupoComponent } from './actualizar-grupo/actualizar-grupo.component';
 import { LoginErrorComponent } from './login-error/login-error.component';
 import { ActualizarGastoComponent } from './actualizar-gasto/actualizar-gasto.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ActualizarGastoComponent } from './actualizar-gasto/actualizar-gasto.co
     CrearGrupoComponent,
     ActualizarGrupoComponent,
     ActualizarGastoComponent,
+    NavbarComponent,
     
   ],
   imports: [
