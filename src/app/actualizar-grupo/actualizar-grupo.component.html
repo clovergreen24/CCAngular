@@ -16,17 +16,10 @@
         <label for="categoria">Categoría</label>
         <select id="categoria" formControlName="categoria">
             <ng-container *ngFor="let categoria of categorias">
-                <option *ngIf="categoria.tipo === 'grupo'" [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
+                <option *ngIf="categoria.tipo === 'grupo'" [value]="categoria">{{ categoria.nombre }}</option>
             </ng-container>
         </select>
     </div>
-      <!-- Nuevo select para los amigos -->
-      <div class="form-group">
-        <label for="amigos">Amigos</label>
-        <select id="amigos" formControlName="amigos">
-          <option *ngFor="let amigo of misAmigos" [value]="amigo.idUsuario">{{ amigo.nombre }}</option>
-        </select>
-      </div>
       <button type="submit">Actualizar Grupo</button>
     </form>
   </div>
