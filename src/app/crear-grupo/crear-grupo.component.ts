@@ -21,6 +21,9 @@ export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
+
+    categoria: new FormControl({}),
+
     amigos: new FormControl()
 
   })
@@ -43,8 +46,10 @@ export class CrearGrupoComponent {
     console.log("on crear")
     if (true) {
       const reg = this.grupoForm.value as CrearGrupo;
+
       let idC = this.categoriaSelect.value as string
       console.log(idC)
+
       let usuario = localStorage.getItem("currentUser" || '');
       const tokenData = jwt_decode.jwtDecode(String(usuario));
       let username = tokenData.sub as String;

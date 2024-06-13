@@ -26,9 +26,10 @@ export class GrupoDetalleComponent {
   crear: boolean=false
   usuario?: Usuario
   nombreGasto= new FormControl('')
-  categoriaGasto = new FormControl('')
+  categoriaGasto = new FormControl()
   montoGasto = new FormControl('')
   gasto: Gasto = { idGasto:0, nombre:'', categoria:{}, monto:0, fecha: new Date(), imagen:'', tipoDivision: 1, usuario: this.usuario}
+  username: string = "";
 
 
   constructor(
@@ -65,7 +66,10 @@ onCreate(){
   this.gasto.monto=Number(this.montoGasto.value)
   
   const idGrupo = this.route.snapshot.paramMap.get('id');
-  this.grupoService.createGasto(idGrupo,this.gasto)
+  this.grupoService.createGasto(idGrupo,this.gasto).subscribe(() =>{
+    console.log('se creo el gasto ' + this.gasto.nombre);
+  }
+  );
 }
 
 
@@ -76,4 +80,11 @@ redirectActualizarGrupo() {
   this.router.navigate([username, this.grupo.idGrupo, 'actualizarGrupo']);  
 }
 
+redirectActualizarGasto() {
+  const idGasto = this.route.snapshot.paramMap.get('id');
+  let usuario = localStorage.getItem("currentUser" || '');
+const tokenData= jwt_decode.jwtDecode(String(usuario));
+this.username = tokenData.sub as string;
+this.router.navigate([this.username, idGasto, 'actualizarGasto']);  
+}
 }

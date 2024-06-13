@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 import { CrearGrupoComponent } from './crear-grupo/crear-grupo.component';
 import { ActualizarGrupoComponent } from './actualizar-grupo/actualizar-grupo.component';
 import { LoginErrorComponent } from './login-error/login-error.component';
+import { ActualizarGastoComponent } from './actualizar-gasto/actualizar-gasto.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoginErrorComponent } from './login-error/login-error.component';
     GrupoDetalleComponent,
     CrearGrupoComponent,
     ActualizarGrupoComponent,
+    ActualizarGastoComponent,
     
   ],
   imports: [

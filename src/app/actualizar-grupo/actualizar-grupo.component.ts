@@ -22,7 +22,7 @@ export class ActualizarGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
-    categoria: new FormControl(),      
+    categoria: new FormControl({}),      
     amigos: new FormControl()
   });
 
@@ -42,7 +42,7 @@ export class ActualizarGrupoComponent {
         this.grupoForm.patchValue({
           nombre: grupo.nombre,
           imagen: grupo.imagen,
-          categoria: null,
+          categoria: grupo.categoria,
           amigos: null // Opcional: cargar los amigos del grupo si es necesario
         });
       });
@@ -57,6 +57,7 @@ export class ActualizarGrupoComponent {
     if (this.grupoForm.valid) {
       const id = this.route.snapshot.params['id']; // Obtener el ID del grupo de la URL
       const datosActualizados = this.grupoForm.value as CrearGrupo;
+      this.cat.getCategoria(datosActualizados.categoria.idCategoria).subscribe(categoria => datosActualizados.categoria = categoria);
       this.grupoService.actualizarGrupo(id, datosActualizados).subscribe(() => {
         //this.router.navigate(['/']); // Redirigir a la página principal u otra página deseada después de la actualización
         console.log('se actualizo grupo ');
@@ -64,6 +65,8 @@ export class ActualizarGrupoComponent {
       });
     }
   }
+
+
 
   llenarAmigos() {
     let usuario = localStorage.getItem("currentUser" || '');
