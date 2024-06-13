@@ -19,7 +19,7 @@ export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     imagen: new FormControl('', Validators.required),
-    categoria: new FormControl(null),
+    categoria: new FormControl({}),
     amigos: new FormControl()
 
   });
@@ -38,13 +38,6 @@ export class CrearGrupoComponent {
   onCrearGrupo() {
     if (this.grupoForm.valid) {
       const reg = this.grupoForm.value as CrearGrupo;
-      
-      //console.log('quetiene ' + reg.categoria);
-
-      const categoriaSeleccionada = this.categorias.find(c => c.idCategoria === reg.categoria);
-      reg.categoria = categoriaSeleccionada;
-     
-
       let usuario = localStorage.getItem("currentUser" || '');
       const tokenData = jwt_decode.jwtDecode(String(usuario));
       let username = tokenData.sub as String;

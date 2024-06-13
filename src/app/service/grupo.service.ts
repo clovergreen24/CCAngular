@@ -35,7 +35,8 @@ export class GrupoService {
     
   }
 
-  actualizarGrupo(id: string, form: CrearGrupo){
+  actualizarGrupo(id: string, form: CrearGrupo): Observable<Grupo>{
+    console.log('explota 1 ');
    return this.http.put<Grupo>(this.urlApi + '/' + id, form);
   }
   getGrupo(id: string | null){

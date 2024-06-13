@@ -41,7 +41,7 @@ export class GrupoComponent implements OnInit {
     })
   }
   redirectCrearGrupo() {
-    let usuario = localStorage.getItem("currentUser" || '');
+    let usuario = localStorage.getItem("currentUser");
     const tokenData= jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
     this.router.navigate([this.username, 'crearGrupo']);  
