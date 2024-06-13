@@ -10,10 +10,10 @@ body {
 }
 
 .container {
-  display: flex;
+  display: grid;
   justify-content: center;
   align-items: center;
-  
+  grid-template-rows: auto;
 }
 
 .card {

@@ -20,6 +20,8 @@ import { ActualizarGrupoComponent } from './actualizar-grupo/actualizar-grupo.co
 import { LoginErrorComponent } from './login-error/login-error.component';
 import { ActualizarGastoComponent } from './actualizar-gasto/actualizar-gasto.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { GrupoComponent } from './grupo/grupo.component';
+
 
 @NgModule({
   declarations: [
@@ -30,11 +32,11 @@ import { NavbarComponent } from './navbar/navbar.component';
     RegistrarseComponent,
     RegistrarseDetalleComponent,
     GrupoDetalleComponent,
+    GrupoComponent,
     CrearGrupoComponent,
     ActualizarGrupoComponent,
     ActualizarGastoComponent,
-    NavbarComponent,
-    
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     HttpClientModule,
     MatDialogModule,
     RouterModule.forRoot([]),
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

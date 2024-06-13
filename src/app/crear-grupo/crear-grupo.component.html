@@ -1,39 +1,36 @@
 <div class="form-container">
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="assets/logo.png" id="icon" alt="User Icon" />
-    </div>
+  <!-- Icon -->
+  <app-navbar></app-navbar>
   <form [formGroup]="grupoForm">
-     <div class="form-group">
+    <div class="form-group">
       <label for="nombre">Nombre Del Grupo</label>
       <input type="text" id="nombre" formControlName="nombre">
     </div>
     <div class="form-group">
       <label for="foto">Imagen</label>
       <input type="file" id="imagen" formControlName="imagen" accept="image/*">
-  </div>
-  
-      <div class="form-group">
-        <label for="categoria">Categoría</label>
-        <select id="categoria" formControlName="categoria">
-            <ng-container *ngFor="let categoria of categorias">
+    </div>
 
-                <option *ngIf="categoria.tipo == 'grupo'" [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
+    <div class="form-group">
+      <label for="categoria">Categoría</label>
+      <select id="categoria" formControlName="categoria">
+        <ng-container *ngFor="let categoria of categorias">
 
-            </ng-container>
-        </select>
+          <option *ngIf="categoria.tipo == 'grupo'" [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
+
+        </ng-container>
+      </select>
     </div>
     <!-- Nuevo select para los amigos -->
-    
-      <label for="amigos">Amigos</label>
-      
-        <div *ngIf="dropdownList.length==0"></div>
-        <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList">
 
-        </ng-multiselect-dropdown>
-      
-  
+    <label for="amigos">Amigos</label>
+
+    <div *ngIf="dropdownList.length==0"></div>
+    <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList">
+
+    </ng-multiselect-dropdown>
+
+
     <button (click)="onCrearGrupo()">Crear Grupo</button>
   </form>
 </div>
-
