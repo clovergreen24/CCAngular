@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../service/usuario.service';
 import { Usuario } from '../model/usuario.interface';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -15,7 +15,6 @@ export class UsuarioComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private route: ActivatedRoute,
-    private router: Router
   ) {}
 
   ngOnInit(): void {

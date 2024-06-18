@@ -1,48 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
-<body class="container">
- 
-<div *ngIf="usuario">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-     <a class="navbar-brand" href="#">
-      <img src="assets/logo.png" alt="Logo de la aplicación" class="logo">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link"   [routerLink]="['misGrupos']">Grupos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Amigos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Saldos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Gastos</a>
-        </li>
-        <li class="nav-item"> 
-          <a class="nav-link" href="#">Pagos</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-    <h2 class="mt-4">Home de {{usuario.usuario}}</h2>
-    <div class="card mt-4">
-      <div class="card-body">
-        <h5 class="card-text">Usuario: {{ usuario.usuario }}</h5>
-        <p class="card-text">Nombre: {{ usuario.nombre }}</p>
-        <p class="card-text">Email: {{ usuario.email }}</p>
-      </div>
-    </div>
 
+
+<div class="row-container">
+
+
+  <app-navbar></app-navbar>
+</div>
+
+<div *ngIf="usuario" class="row-container">
+
+  <h2 class="mt-4">Home de {{usuario.usuario}}</h2>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-text">Usuario: {{ usuario.usuario }}</h5>
+      <p class="card-text">Nombre: {{ usuario.nombre }}</p>
+      <p class="card-text">Email: {{ usuario.email }}</p>
+    </div>
   </div>
+</div>
 
-</body>
+
+
+
 </html>
