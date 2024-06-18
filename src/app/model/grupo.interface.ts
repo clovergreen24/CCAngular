@@ -7,7 +7,7 @@ import { Usuario } from "./usuario.interface";
 
 
 export interface Grupo {
-    idGrupo: Number,
+    idGrupo: number,
     nombre: string,
     imagen: string,
     integrantes: Usuario[],

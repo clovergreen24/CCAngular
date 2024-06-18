@@ -7,13 +7,13 @@ import { UsuarioService } from '../service/usuario.service';
 import * as jwt_decode  from 'jwt-decode';
 import { Router, RouterModule } from '@angular/router';
 import { LocalizedString } from '@angular/compiler';
+import { NavbarComponent } from '../navbar/navbar.component';
+
 
 @Component({
-  standalone: true,
   selector: 'app-grupo',
   templateUrl: './grupo.component.html',
   styleUrl: './grupo.component.css',
-  imports: [NgFor, NgIf, RouterModule],
   providers: [GrupoService]
 })
 export class GrupoComponent implements OnInit {
@@ -21,7 +21,6 @@ export class GrupoComponent implements OnInit {
   misGrupos: Grupo[] = [{ idGrupo: 0, nombre: '', categoria: {}, gastos: [], imagen: '', integrantes: [], saldos: [], pagos: []}];
   username: string = "";
 
-  
   
   constructor(private grupoService: GrupoService,  private router: Router) {
 
@@ -36,12 +35,12 @@ export class GrupoComponent implements OnInit {
     const tokenData= jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
     this.grupoService.getGruposDeUsuario(this.username).subscribe(grupos => {
-      this.misGrupos.pop();
+      
       this.misGrupos = grupos;
     })
   }
   redirectCrearGrupo() {
-    let usuario = localStorage.getItem("currentUser" || '');
+    let usuario = localStorage.getItem("currentUser");
     const tokenData= jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
     this.router.navigate([this.username, 'crearGrupo']);  

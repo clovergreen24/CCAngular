@@ -1,14 +1,21 @@
-
-.container-h{
-    display: flex;
+.column-container {
+    display: grid;
+    grid-template-columns: 0.7fr 1.6fr;
+    gap: 6px 8px;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
     align-items: center;
+    margin: 8px;
 }
 
-.container-v{
-    display: flex;
-    flex-direction: column;
+.row-container {
+    display: grid;
+    grid-template-rows: 1.7fr;
+    gap: 6px 8px;
+    grid-auto-flow: row;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
     align-items: center;
-    margin-left: 50px;
-    
 }
-

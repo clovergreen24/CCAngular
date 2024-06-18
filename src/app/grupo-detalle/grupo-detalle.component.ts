@@ -75,9 +75,9 @@ onCreate(){
 
 redirectActualizarGrupo() {
   let usuario = localStorage.getItem("currentUser" || '');
-const tokenData= jwt_decode.jwtDecode(String(usuario));
-this.username = tokenData.sub as string;
-this.router.navigate([this.username, this.grupo.idGrupo, 'actualizarGrupo']);  
+  const tokenData= jwt_decode.jwtDecode(String(usuario));
+  let username = tokenData.sub as string;
+  this.router.navigate([username, this.grupo.idGrupo, 'actualizarGrupo']);  
 }
 
 redirectActualizarGasto() {

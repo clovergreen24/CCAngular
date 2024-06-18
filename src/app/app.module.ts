@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsuarioComponent } from './usuario/usuario.component';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { RegistrarseComponent } from './registrarse/registrarse.component';
@@ -19,6 +19,9 @@ import { CrearGrupoComponent } from './crear-grupo/crear-grupo.component';
 import { ActualizarGrupoComponent } from './actualizar-grupo/actualizar-grupo.component';
 import { LoginErrorComponent } from './login-error/login-error.component';
 import { ActualizarGastoComponent } from './actualizar-gasto/actualizar-gasto.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { GrupoComponent } from './grupo/grupo.component';
+
 
 @NgModule({
   declarations: [
@@ -29,10 +32,11 @@ import { ActualizarGastoComponent } from './actualizar-gasto/actualizar-gasto.co
     RegistrarseComponent,
     RegistrarseDetalleComponent,
     GrupoDetalleComponent,
+    GrupoComponent,
     CrearGrupoComponent,
     ActualizarGrupoComponent,
     ActualizarGastoComponent,
-    
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,8 @@ import { ActualizarGastoComponent } from './actualizar-gasto/actualizar-gasto.co
     FormsModule,
     HttpClientModule,
     MatDialogModule,
-    RouterModule.forRoot([])
+    RouterModule.forRoot([]),
+    NgMultiSelectDropDownModule.forRoot(),
     
   ],
   providers: [
