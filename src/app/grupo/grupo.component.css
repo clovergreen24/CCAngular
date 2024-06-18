@@ -1,6 +1,16 @@
 
 .titulo{
     display: flex;
-    position: absolute;
+    padding: 10px;
     top: 10px;
+}
+
+.container{
+    flex-direction: column;
+    padding: 10px; /* Add padding inside the container */
+    box-sizing: border-box;
+    ;
+}
+.item {
+    margin-bottom: 10px; /* Add margin to the bottom of each item */
 }

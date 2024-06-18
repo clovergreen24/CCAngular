@@ -1,32 +1,28 @@
-<!DOCTYPE html>
-<html lang="es">
+<app-navbar></app-navbar>
 
 <body class="container">
-  <app-navbar></app-navbar>
-  <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
-    <button type="button" class="btn btn-success" (click)="redirectCrearGrupo()">Crear Grupo</button>
-    <div class="titulo" *ngIf="misGrupos.length>0; else sinGrupos">
-      Estos son tus grupos
-    </div>
 
-    <ng-template #sinGrupos class="titulo">
-      No sos parte de ningun grupo
-    </ng-template>
-
-    <div [hidden]="!misGrupos" class="list-group" *ngFor="let grupo of misGrupos">
-      <a [routerLink]="['grupoDetalle', grupo.idGrupo]" class="list-group-item list-group-item-action d-flex gap-3 py-3"
-        aria-current="true">
-        <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
-        <div class="d-flex gap-2 w-100 justify-content-between">
-          <div>
-            <h6 class="mb-0">{{grupo.nombre}}</h6>
-            <!-- <p class="mb-0 opacity-75">{{grupo.categoria.nombre}}</p> COMENTO ESTO XQ ME DA ERROR XQ AUN NO TENGO CATEGORIAS -->
-          </div>
-          <small class="opacity-50 text-nowrap"></small>
-        </div>
-      </a>
-    </div>
+  <div class="titulo" *ngIf="misGrupos.length>0; else sinGrupos">
+    Estos son tus grupos
   </div>
-</body>
 
-</html>
+  <ng-template #sinGrupos class="titulo" >
+    No sos parte de ningun grupo
+  </ng-template>
+
+  <div [hidden]="!misGrupos" class="list-group" *ngFor="let grupo of misGrupos">
+    <a [routerLink]="['grupoDetalle', grupo.idGrupo]" class="list-group-item list-group-item-action d-flex gap-3 py-3"
+      aria-current="true">
+      <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+      <div class="d-flex gap-2 w-100 justify-content-between">
+        <div>
+          <h6 class="mb-0">{{grupo.nombre}}</h6>
+          <!-- <p class="mb-0 opacity-75">{{grupo.categoria.nombre}}</p> COMENTO ESTO XQ ME DA ERROR XQ AUN NO TENGO CATEGORIAS -->
+        </div>
+        <small class="opacity-50 text-nowrap"></small>
+      </div>
+    </a>
+  </div>
+  <button type="button" class="btn btn-success" style="margin: 10px 20px;" (click)="redirectCrearGrupo()">Crear Grupo</button>
+
+</body>

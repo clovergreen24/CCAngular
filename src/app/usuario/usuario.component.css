@@ -1,19 +1,41 @@
 /* usuario.component.css */
 
+.usuario{
+  align-self: left;
+}
+
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 50vh; /* Asegura que la página esté centrada verticalmente en la ventana */
+  
+  flex-grow: 1;
   margin: 0; /* Elimina el margen predeterminado del cuerpo */
 
 }
 
 .container {
   display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-rows: auto;
+  
+  flex-grow: 1;
+  grid-template-rows: 1.7fr;
+}
+
+.column-container {
+  flex-direction: column;
+  display: grid;
+  max-height: 50%;
+  grid-template-columns: 1.6fr ;
+  gap: 6px 8px;
+  margin: 8px;
+}
+
+.row-container {
+  display: grid;
+  flex-direction: column;
+  flex-grow: 1;
+  grid-template-rows: 1.7fr;
+  gap: 6px 8px;
+  grid-auto-flow: row;
+  margin-left: 200px;
 }
 
 .card {

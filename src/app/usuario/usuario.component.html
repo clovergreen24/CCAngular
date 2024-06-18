@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<body>
-  <app-navbar></app-navbar>
-    <div *ngIf="usuario" class="container">
 
-      <h2 class="mt-4">Home de {{usuario.usuario}}</h2>
-      <div class="card mt-4">
-        <div class="card-body">
-          <h5 class="card-text">Usuario: {{ usuario.usuario }}</h5>
-          <p class="card-text">Nombre: {{ usuario.nombre }}</p>
-          <p class="card-text">Email: {{ usuario.email }}</p>
-        </div>
-      </div>
+<div class="row-container">
+
+
+  <app-navbar></app-navbar>
+</div>
+
+<div *ngIf="usuario" class="row-container">
+
+  <h2 class="mt-4">Home de {{usuario.usuario}}</h2>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-text">Usuario: {{ usuario.usuario }}</h5>
+      <p class="card-text">Nombre: {{ usuario.nombre }}</p>
+      <p class="card-text">Email: {{ usuario.email }}</p>
     </div>
-  
-</body>
+  </div>
+</div>
+
+
+
 
 </html>
