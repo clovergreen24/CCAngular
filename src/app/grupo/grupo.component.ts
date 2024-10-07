@@ -31,7 +31,7 @@ export class GrupoComponent implements OnInit {
   }
 
   llenarGrupos() {
-    let usuario = localStorage.getItem("currentUser" || '');
+    let usuario = localStorage.getItem("currentUser");
     const tokenData= jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
     this.grupoService.getGruposDeUsuario(this.username).subscribe(grupos => {

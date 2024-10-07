@@ -49,12 +49,10 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         () => {
-          let usuario = localStorage.getItem("currentUser" || '');
-          const tokenData = jwt_decode.jwtDecode(String(usuario));
-          let username = tokenData.sub as String;
+          
 
           // Construye la URL de redirección utilizando el username
-          const returnUrl = `/${username}`;
+          const returnUrl = `/home`;
 
 
           // Redirige al usuario a la URL construida
