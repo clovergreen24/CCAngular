@@ -28,6 +28,7 @@ export class GrupoDetalleComponent {
   agregar: boolean=false
   usuario?: Usuario
   nuevoMiembro: string = ""
+  quitarMiembro: string = ""
   nombreGasto= new FormControl('')
   categoriaGasto = new FormControl()
   montoGasto = new FormControl('')
@@ -54,29 +55,8 @@ ngOnInit(){
     const tokenData = jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
 
-    // Wait until username is set, then fetch usuario and amigos
-    this.usuarioService.getUsuario(this.username)
-      .pipe(
-        switchMap((usuario) => {
-          this.usuario = usuario;
-          return this.usuarioService.getAmigos(this.username); // Fetch amigos after fetching usuario
-        })
-      )
-      .subscribe(
-        (amigos) => {
-          this.amigos = amigos || []; // Initialize amigos array if null
-          console.log('Amigos fetched:', this.amigos);
-          
-          // Filter amigos, removing those who are already members
-          this.amigos = this.amigos.filter(amigo => 
-            !this.miembros?.some(miembro => miembro.usuario === amigo.usuario)
-          );
-          console.log('Filtered Amigos:', this.amigos);
-        },
-        (error) => {
-          console.error('Error fetching amigos:', error);
-        }
-      );
+    
+    this.llenarAmigos();
     }
   
 }
@@ -87,6 +67,7 @@ onClick(){
 
 onClickAgregar(){
   this.agregar=true;
+  this.llenarAmigos();
 }
 
 onCreate(){
@@ -121,5 +102,40 @@ onAgregarMiembro(){
     console.log('se agrego el miembro ' + this.nuevoMiembro);
   })
   this.grupoService.getIntegrantes(this.grupo.idGrupo as unknown as string).subscribe(miembros => {this.miembros=miembros})
+  this.llenarAmigos();
+  this.agregar=false;
+}
+
+onQuitarMiembro(){
+  this.grupoService.quitarMiembro(this.grupo.idGrupo,this.quitarMiembro).subscribe(() =>{
+    console.log('se quito el miembro ' + this.quitarMiembro);
+  })
+  this.grupoService.getIntegrantes(this.grupo.idGrupo as unknown as string).subscribe(miembros => {this.miembros=miembros})
+  this.llenarAmigos();
+}
+
+llenarAmigos(){
+  this.usuarioService.getUsuario(this.username)
+      .pipe(
+        switchMap((usuario) => {
+          this.usuario = usuario;
+          return this.usuarioService.getAmigos(this.username); // Fetch amigos after fetching usuario
+        })
+      )
+      .subscribe(
+        (amigos) => {
+          this.amigos = amigos || []; // Initialize amigos array if null
+          console.log('Amigos fetched:', this.amigos);
+          
+          // Filter amigos, removing those who are already members
+          this.amigos = this.amigos.filter(amigo => 
+            !this.miembros?.some(miembro => miembro.usuario === amigo.usuario)
+          );
+          console.log('Filtered Amigos:', this.amigos);
+        },
+        (error) => {
+          console.error('Error fetching amigos:', error);
+        }
+      );
 }
 }

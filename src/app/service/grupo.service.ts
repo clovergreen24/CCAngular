@@ -65,5 +65,9 @@ export class GrupoService {
    agregarMiembro(id: number, username: string){
     return this.http.put<Grupo>(this.urlApi + '/nuevoMiembro' + '/' + username, id);
    }
+
+  quitarMiembro(id: number, username: string){
+    return this.http.put<Grupo>(this.urlApi + '/borrarMiembro' + '/' + username, id);
+  }
 }
    
