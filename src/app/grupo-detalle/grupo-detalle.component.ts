@@ -45,7 +45,7 @@ ngOnInit(){
   this.grupoService.getIntegrantes(idGrupo).subscribe(miembros => {this.miembros=miembros})
   this.grupoService.getGastos(idGrupo).subscribe(gastos => {this.gastos=gastos})
   this.grupoService.getCategorias().subscribe(categorias => {this.categorias=categorias})
-  let usuario = localStorage.getItem("currentUser" || '');
+  let usuario = localStorage.getItem("currentUser");
   const tokenData= jwt_decode.jwtDecode(String(usuario));
   let username = tokenData.sub as string;
   this.usuarioService.getUsuario(username).subscribe(usuario => {this.usuario=usuario})
@@ -74,17 +74,11 @@ onCreate(){
 
 
 redirectActualizarGrupo() {
-  let usuario = localStorage.getItem("currentUser" || '');
-  const tokenData= jwt_decode.jwtDecode(String(usuario));
-  let username = tokenData.sub as string;
-  this.router.navigate([username, this.grupo.idGrupo, 'actualizarGrupo']);  
+  this.router.navigate([this.grupo.idGrupo, 'actualizarGrupo']);  
 }
 
 redirectActualizarGasto() {
   const idGasto = this.route.snapshot.paramMap.get('id');
-  let usuario = localStorage.getItem("currentUser" || '');
-const tokenData= jwt_decode.jwtDecode(String(usuario));
-this.username = tokenData.sub as string;
-this.router.navigate([this.username, idGasto, 'actualizarGasto']);  
+  this.router.navigate([idGasto, 'actualizarGasto']);  
 }
 }

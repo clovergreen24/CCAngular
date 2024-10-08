@@ -29,7 +29,7 @@ export class ActualizarGrupoComponent {
   categorias: Categoria[] = [];
   misAmigos: Usuario[] = [];
   username: string = "";
- 
+
   constructor(private grupoService: GrupoService, private cat: CategoriaService, private usuario: UsuarioService, private router: Router, private location: Location, private route: ActivatedRoute) {
 
   }
@@ -69,7 +69,7 @@ export class ActualizarGrupoComponent {
 
 
   llenarAmigos() {
-    let usuario = localStorage.getItem("currentUser" || '');
+    let usuario = localStorage.getItem("currentUser");
     const tokenData= jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
     this.usuario.getAmigos(this.username).subscribe(amigos => {
