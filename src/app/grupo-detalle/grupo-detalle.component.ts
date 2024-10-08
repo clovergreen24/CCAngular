@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { Grupo } from '../model/grupo.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GrupoService } from '../service/grupo.service';
@@ -48,11 +48,37 @@ ngOnInit(){
   this.grupoService.getIntegrantes(idGrupo).subscribe(miembros => {this.miembros=miembros})
   this.grupoService.getGastos(idGrupo).subscribe(gastos => {this.gastos=gastos})
   this.grupoService.getCategorias().subscribe(categorias => {this.categorias=categorias})
-  let usuario = localStorage.getItem("currentUser");
-  const tokenData= jwt_decode.jwtDecode(String(usuario));
-  let username = tokenData.sub as string;
-  this.usuarioService.getUsuario(username).subscribe(usuario => {this.usuario=usuario})
-  this.llenarAmigos()
+  const usuario = localStorage.getItem("currentUser");
+  
+  if (usuario) {
+    const tokenData = jwt_decode.jwtDecode(String(usuario));
+    this.username = tokenData.sub as string;
+
+    // Wait until username is set, then fetch usuario and amigos
+    this.usuarioService.getUsuario(this.username)
+      .pipe(
+        switchMap((usuario) => {
+          this.usuario = usuario;
+          return this.usuarioService.getAmigos(this.username); // Fetch amigos after fetching usuario
+        })
+      )
+      .subscribe(
+        (amigos) => {
+          this.amigos = amigos || []; // Initialize amigos array if null
+          console.log('Amigos fetched:', this.amigos);
+          
+          // Filter amigos, removing those who are already members
+          this.amigos = this.amigos.filter(amigo => 
+            !this.miembros?.some(miembro => miembro.usuario === amigo.usuario)
+          );
+          console.log('Filtered Amigos:', this.amigos);
+        },
+        (error) => {
+          console.error('Error fetching amigos:', error);
+        }
+      );
+    }
+  
 }
 
 onClick(){
@@ -90,19 +116,10 @@ redirectActualizarGasto() {
   this.router.navigate([idGasto, 'actualizarGasto']);  
 }
 
-llenarAmigos(){
-  this.usuarioService.getAmigos(this.username).subscribe(amigos => {this.amigos=amigos})
-  console.log(this.amigos)
-  this.amigos?.forEach(amigo => {
-    if(this.miembros?.includes(amigo)){
-      this.amigos?.splice(this.amigos.indexOf(amigo),1)
-    }
-  });
-}
-
 onAgregarMiembro(){
   this.grupoService.agregarMiembro(this.grupo.idGrupo,this.nuevoMiembro).subscribe(() =>{
     console.log('se agrego el miembro ' + this.nuevoMiembro);
   })
+  this.grupoService.getIntegrantes(this.grupo.idGrupo as unknown as string).subscribe(miembros => {this.miembros=miembros})
 }
 }

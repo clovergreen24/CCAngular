@@ -26,7 +26,7 @@
         <select id="nuevoMiembro" [(ngModel)]="nuevoMiembro">
           <option  [value]="amigo.usuario">{{amigo.usuario}}</option>
         </select>
-        <button (click)="onAgregarMiembro()"></button>
+        <button (click)="onAgregarMiembro()" class="btn btn-success">Agregar</button>
       </ng-container>
       <div *ngIf="!amigos || amigos.length === 0">No tienes más amigos para agregar</div>
     </div>
