@@ -24,6 +24,7 @@ export class GrupoDetalleComponent {
   gastos?: Gasto[]
   categorias?:Categoria[]
   crear: boolean=false
+  agregar: boolean=false
   usuario?: Usuario
   nombreGasto= new FormControl('')
   categoriaGasto = new FormControl()
@@ -53,6 +54,10 @@ ngOnInit(){
 
 onClick(){
   this.crear=true;
+}
+
+onClickAgregar(){
+  this.agregar=true;
 }
 
 onCreate(){
