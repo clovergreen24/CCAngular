@@ -20,8 +20,7 @@ export class ActualizarGrupoComponent {
   grupo: Grupo = { idGrupo: 0, nombre: '', categoria: {}, gastos: [], imagen: '', integrantes: [], saldos: [], pagos: []};
   
   grupoForm = new FormGroup({
-    nombre: new FormControl('', Validators.required),
-    imagen: new FormControl('', Validators.required),
+    nombre: new FormControl(),
     categoria: new FormControl({}),      
     amigos: new FormControl()
   });
@@ -41,8 +40,8 @@ export class ActualizarGrupoComponent {
         // Llenar el formulario con los datos del grupo existente
         this.grupoForm.patchValue({
           nombre: grupo.nombre,
-          imagen: grupo.imagen,
-          categoria: grupo.categoria,
+
+          categoria: grupo.categoria.idCategoria,
           amigos: null // Opcional: cargar los amigos del grupo si es necesario
         });
       });
@@ -57,11 +56,14 @@ export class ActualizarGrupoComponent {
     if (this.grupoForm.valid) {
       const id = this.route.snapshot.params['id']; // Obtener el ID del grupo de la URL
       const datosActualizados = this.grupoForm.value as CrearGrupo;
-      this.cat.getCategoria(datosActualizados.categoria.idCategoria).subscribe(categoria => datosActualizados.categoria = categoria);
-      this.grupoService.actualizarGrupo(id, datosActualizados).subscribe(() => {
-        //this.router.navigate(['/']); // Redirigir a la página principal u otra página deseada después de la actualización
-        console.log('se actualizo grupo ');
-        this.location.back();     
+      console.log('Id categoria:', datosActualizados.categoria as number);
+      const categoriaId = datosActualizados.categoria as Number;
+      this.cat.getCategoria(categoriaId).subscribe((categoria) => { 
+        datosActualizados.categoria = categoria;
+        this.grupoService.actualizarGrupo(id, datosActualizados).subscribe(() => {
+          console.log('se actualizo grupo ');
+          this.location.back();     
+        }); 
       });
     }
   }

@@ -8,15 +8,12 @@
         <label for="nombre">Nombre del Grupo</label>
         <input type="text" id="nombre" formControlName="nombre">
       </div>
-      <div class="form-group">
-        <label for="foto">Imagen</label>
-        <input type="file" id="imagen" formControlName="imagen" accept="image/*">
-    </div>
+      
       <div class="form-group">
         <label for="categoria">Categoría</label>
         <select id="categoria" formControlName="categoria">
             <ng-container *ngFor="let categoria of categorias">
-                <option *ngIf="categoria.tipo === 'grupo'" [value]="categoria">{{ categoria.nombre }}</option>
+                <option *ngIf="categoria.tipo === 'grupo'" [ngValue]="categoria.idCategoria">{{ categoria.nombre }}</option>
             </ng-container>
         </select>
     </div>
