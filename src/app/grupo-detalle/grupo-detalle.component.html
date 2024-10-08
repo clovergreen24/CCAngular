@@ -22,7 +22,13 @@
     </div>
     <button (click)="onClickAgregar()" class="btn btn-success">Agregar miembro</button>
     <div [hidden]="!agregar">
-      fdgfvjhbjhbjh
+      <ng-container *ngFor="let amigo of amigos">
+        <select id="nuevoMiembro" [(ngModel)]="nuevoMiembro">
+          <option  [value]="amigo.usuario">{{amigo.usuario}}</option>
+        </select>
+        <button (click)="onAgregarMiembro()"></button>
+      </ng-container>
+      <div *ngIf="!amigos || amigos.length === 0">No tienes más amigos para agregar</div>
     </div>
   </div>
   <div class="row-container">

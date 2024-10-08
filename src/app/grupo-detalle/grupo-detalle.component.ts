@@ -21,11 +21,13 @@ export class GrupoDetalleComponent {
   grupo: Grupo = { idGrupo: 0, nombre: '', categoria: {}, gastos: [], imagen: '', integrantes: [], saldos: [], pagos: []};
 
   miembros?: Usuario[]
+  amigos?: Usuario[]
   gastos?: Gasto[]
   categorias?:Categoria[]
   crear: boolean=false
   agregar: boolean=false
   usuario?: Usuario
+  nuevoMiembro: string = ""
   nombreGasto= new FormControl('')
   categoriaGasto = new FormControl()
   montoGasto = new FormControl('')
@@ -50,6 +52,7 @@ ngOnInit(){
   const tokenData= jwt_decode.jwtDecode(String(usuario));
   let username = tokenData.sub as string;
   this.usuarioService.getUsuario(username).subscribe(usuario => {this.usuario=usuario})
+  this.llenarAmigos()
 }
 
 onClick(){
@@ -85,5 +88,21 @@ redirectActualizarGrupo() {
 redirectActualizarGasto() {
   const idGasto = this.route.snapshot.paramMap.get('id');
   this.router.navigate([idGasto, 'actualizarGasto']);  
+}
+
+llenarAmigos(){
+  this.usuarioService.getAmigos(this.username).subscribe(amigos => {this.amigos=amigos})
+  console.log(this.amigos)
+  this.amigos?.forEach(amigo => {
+    if(this.miembros?.includes(amigo)){
+      this.amigos?.splice(this.amigos.indexOf(amigo),1)
+    }
+  });
+}
+
+onAgregarMiembro(){
+  this.grupoService.agregarMiembro(this.grupo.idGrupo,this.nuevoMiembro).subscribe(() =>{
+    console.log('se agrego el miembro ' + this.nuevoMiembro);
+  })
 }
 }

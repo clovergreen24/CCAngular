@@ -62,5 +62,8 @@ export class GrupoService {
     return this.http.put<Gasto>('http://localhost:8080/jwt/gasto' + '/' + id, form);
    }
   
+   agregarMiembro(id: number, username: string){
+    return this.http.put<Grupo>(this.urlApi + '/nuevoMiembro' + '/' + username, id);
+   }
 }
    
