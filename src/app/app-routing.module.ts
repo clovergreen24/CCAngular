@@ -16,16 +16,17 @@ import { ActualizarGastoComponent } from './actualizar-gasto/actualizar-gasto.co
 
 
 const routes: Routes = [
-  {path:'', redirectTo:'login', pathMatch:'full'},
+  {path:'', redirectTo:'home', pathMatch:'full'},
 
   {path:'login', component:LoginComponent},
   {path: 'registrarse', component:RegistrarseComponent},
-  {path: ':username/crearGrupo', component: CrearGrupoComponent } ,
-  {path: ':username', component: UsuarioComponent},
-  {path:':username/misGrupos', component:GrupoComponent},
-  {path:':username/misGrupos/grupoDetalle/:id', component:GrupoDetalleComponent},
-  {path:':username/:id/actualizarGrupo', component: ActualizarGrupoComponent},
-  {path: ':username/:id/actualizarGasto', component: ActualizarGastoComponent}
+  {path: 'crearGrupo', component: CrearGrupoComponent } ,
+  {path: 'home', component: UsuarioComponent},
+  {path:'misGrupos', component:GrupoComponent},
+  {path:'misGrupos/grupoDetalle/:id', component:GrupoDetalleComponent},
+  {path:':id/actualizarGrupo', component: ActualizarGrupoComponent},
+  {path: ':id/actualizarGasto', component: ActualizarGastoComponent},
+
 
 
 ];
