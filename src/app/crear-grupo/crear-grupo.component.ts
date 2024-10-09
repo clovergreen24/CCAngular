@@ -12,6 +12,8 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 
 
+
+
 @Component({
   selector: 'app-crear-grupo',
   templateUrl: './crear-grupo.component.html',
@@ -20,12 +22,8 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
-    imagen: new FormControl('', Validators.required),
-
-    categoria: new FormControl({}),
-
-    amigos: new FormControl()
-
+    categoria: new FormControl(),
+    // integrantes: new FormControl([])
   })
   
   dropdownList: Usuario[] =[]
@@ -43,25 +41,28 @@ export class CrearGrupoComponent {
   }
 
   onCrearGrupo() {
+    if(this.grupoForm.valid){
     console.log("on crear")
-    if (true) {
-      const reg = this.grupoForm.value as CrearGrupo;
-
-      let idC = this.categoriaSelect.value as string
-      console.log(idC)
-
-      let usuario = localStorage.getItem("currentUser" || '');
+    
+      let reg: CrearGrupo = {
+        nombre: this.grupoForm.get('nombre')?.value || '',
+        categoria: this.grupoForm.get('categoria')?.value || '',
+        // integrantes: this.grupoForm.get('integrantes')?.value || []
+      }
+      
+      let usuario = localStorage.getItem("currentUser");
       const tokenData = jwt_decode.jwtDecode(String(usuario));
       let username = tokenData.sub as String;
-      this.grupoService.crearGrupo(username, idC,this.miembros,reg).subscribe(() => {
+      this.grupoService.crearGrupo(username, reg).subscribe(() => {
         console.log('se creo un grupo con nombre ' + reg.nombre);
-        this.router.navigate([username + "/misGrupos"]);
+        this.router.navigate(["/misGrupos"]);
       });
-
+    } else {
+      console.log("Formulario invalido");
     }
   }
   llenarAmigos() {
-    let usuario = localStorage.getItem("currentUser" || '');
+    let usuario = localStorage.getItem("currentUser");
     const tokenData = jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
     this.usuario.getAmigos(this.username).subscribe(amigos => {
@@ -70,10 +71,22 @@ export class CrearGrupoComponent {
     this.dropdownSettings={
       idField: 'IdUsuario',
       textField: 'nombre',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+
     }
   }
   onSelect(amigo: Usuario){
     this.miembros.push(amigo)
+  }
+  onDeSelect(amigo: Usuario){
+    this.miembros = this.miembros.filter(m => m.idUsuario !== amigo.idUsuario)
+  }
+  onDeSelectAll(){
+    this.miembros = []
+  }
+  onSelectAll(){
+    this.miembros = this.dropdownList
   }
   llenarCategorias() {
     this.grupoService.getCategorias().subscribe(

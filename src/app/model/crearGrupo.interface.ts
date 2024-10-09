@@ -1,13 +1,8 @@
 import { Categoria } from "./categoria.interface";
+import { Usuario } from "./usuario.interface";
 
 export interface CrearGrupo {
-   // idGrupo: number,
     nombre: string;
-    imagen: string;
-  //  integrantes: Usuario[],
-    categoria: Categoria;
-  //  saldos: Saldo[],
-    //gastos: Gasto[],
-    //pagos: Pago[]
-  
+    // integrantes: Usuario[],
+    categoria: number;
 }
