@@ -28,15 +28,14 @@ export class GrupoService {
   }
 
 
-   crearGrupo(username: String, idC:string, integrantes: Usuario[], form: CrearGrupo): Observable<Grupo>{
+   crearGrupo(username: String,form: CrearGrupo): Observable<Grupo>{
     console.log("estoy por crear un grupo");
-    return this.http.post<Grupo>(this.urlApi + "/crearGrupo", {form,idC,username,integrantes});
+    return this.http.post<Grupo>(this.urlApi + '/' + username + "/crearGrupo", form);
     
   }
 
   actualizarGrupo(id: string, form: CrearGrupo): Observable<Grupo>{
-    console.log('explota 1 ');
-   return this.http.put<Grupo>(this.urlApi + '/' + id, form);
+    return this.http.put<Grupo>(this.urlApi + '/' + id, form);
   }
   getGrupo(id: string | null){
     return this.http.get<Grupo>(this.urlApi + '/' + id)
@@ -63,5 +62,12 @@ export class GrupoService {
     return this.http.put<Gasto>('http://localhost:8080/jwt/gasto' + '/' + id, form);
    }
   
+   agregarMiembro(id: number, username: string){
+    return this.http.put<Grupo>(this.urlApi + '/nuevoMiembro' + '/' + username, id);
+   }
+
+  quitarMiembro(id: number, username: string){
+    return this.http.put<Grupo>(this.urlApi + '/borrarMiembro' + '/' + username, id);
+  }
 }
    

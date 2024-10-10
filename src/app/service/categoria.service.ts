@@ -15,7 +15,7 @@ export class CategoriaService {
       return this.http.get<Categoria[]>(this.urlApi , { withCredentials: true });
   }
 
-  getCategoria(id: Number | undefined): Observable<Categoria>{
-    return this.http.get<Categoria>(this.urlApi + '/categoriId/' + id);
+  getCategoria(id: Number): Observable<Categoria>{
+    return this.http.get<Categoria>(this.urlApi + '/categoriaId/' + id);
   }
 }

@@ -34,7 +34,7 @@ export class UsuarioService {
   }
 
   getAmigos(username: string): Observable<Usuario[]>{
-    return this.http.get<Usuario[]>(this.usuarioUrl+ "/" +username + "/amigos");
+    return this.http.get<Usuario[]>(this.usuarioUrl+ "/" + username + "/amigos");
   }
 
 }

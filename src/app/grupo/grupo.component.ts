@@ -40,7 +40,7 @@ export class GrupoComponent implements OnInit {
     })
   }
   redirectCrearGrupo() {
-    this.router.navigate([this.username, 'crearGrupo']);  
+    this.router.navigate(['crearGrupo']);  
 }
 
 
