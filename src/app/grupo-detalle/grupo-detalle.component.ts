@@ -32,6 +32,7 @@ export class GrupoDetalleComponent {
   nombreGasto= new FormControl('')
   categoriaGasto = new FormControl()
   montoGasto = new FormControl('')
+  idGrupo = this.route.snapshot.paramMap.get('id');
   gasto: Gasto = { idGasto:0, nombre:'', categoria:{}, monto:0, fecha: new Date(), imagen:'', tipoDivision: 1, usuario: this.usuario}
   username: string = "";
 
@@ -44,11 +45,10 @@ export class GrupoDetalleComponent {
   }
 
 ngOnInit(){
-  const idGrupo = this.route.snapshot.paramMap.get('id');
-  this.grupoService.getGrupo(idGrupo).subscribe(grupo => { this.grupo = grupo});
-  this.grupoService.getIntegrantes(idGrupo).subscribe(miembros => {this.miembros=miembros})
-  this.grupoService.getGastos(idGrupo).subscribe(gastos => {this.gastos=gastos})
+  this.grupoService.getGrupo(this.idGrupo).subscribe(grupo => { this.grupo = grupo});
+  this.grupoService.getGastos(this.idGrupo).subscribe(gastos => {this.gastos=gastos})
   this.grupoService.getCategorias().subscribe(categorias => {this.categorias=categorias})
+  this.llenarMiembros(this.idGrupo);
   const usuario = localStorage.getItem("currentUser");
   
   if (usuario) {
@@ -79,9 +79,8 @@ onCreate(){
   this.gasto.usuario=this.usuario
   this.gasto.grupo=this.grupo
   this.gasto.monto=Number(this.montoGasto.value)
-  
-  const idGrupo = this.route.snapshot.paramMap.get('id');
-  this.grupoService.createGasto(idGrupo,this.gasto).subscribe(() =>{
+
+  this.grupoService.createGasto(this.idGrupo,this.gasto).subscribe(() =>{
     console.log('se creo el gasto ' + this.gasto.nombre);
   }
   );
@@ -100,18 +99,23 @@ redirectActualizarGasto() {
 onAgregarMiembro(){
   this.grupoService.agregarMiembro(this.grupo.idGrupo,this.nuevoMiembro).subscribe(() =>{
     console.log('se agrego el miembro ' + this.nuevoMiembro);
+    this.llenarMiembros(this.idGrupo);
+    this.llenarAmigos();
+    this.agregar=false;
   })
-  this.grupoService.getIntegrantes(this.grupo.idGrupo as unknown as string).subscribe(miembros => {this.miembros=miembros})
-  this.llenarAmigos();
-  this.agregar=false;
+
 }
 
 onQuitarMiembro(){
   this.grupoService.quitarMiembro(this.grupo.idGrupo,this.quitarMiembro).subscribe(() =>{
     console.log('se quito el miembro ' + this.quitarMiembro);
+    this.llenarAmigos();
+    this.llenarMiembros(this.idGrupo);
   })
-  this.grupoService.getIntegrantes(this.grupo.idGrupo as unknown as string).subscribe(miembros => {this.miembros=miembros})
-  this.llenarAmigos();
+}
+
+llenarMiembros(idGrupo?: string | null){
+  this.grupoService.getIntegrantes(idGrupo as string).subscribe(miembros => {this.miembros=miembros;})
 }
 
 llenarAmigos(){
