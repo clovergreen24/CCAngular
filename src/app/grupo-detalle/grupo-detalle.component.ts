@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { Grupo } from '../model/grupo.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GrupoService } from '../service/grupo.service';
@@ -21,14 +21,18 @@ export class GrupoDetalleComponent {
   grupo: Grupo = { idGrupo: 0, nombre: '', categoria: {}, gastos: [], imagen: '', integrantes: [], saldos: [], pagos: []};
 
   miembros?: Usuario[]
+  amigos?: Usuario[]
   gastos?: Gasto[]
   categorias?:Categoria[]
   crear: boolean=false
   agregar: boolean=false
   usuario?: Usuario
+  nuevoMiembro: string = ""
+  quitarMiembro: string = ""
   nombreGasto= new FormControl('')
   categoriaGasto = new FormControl()
   montoGasto = new FormControl('')
+  idGrupo = this.route.snapshot.paramMap.get('id');
   gasto: Gasto = { idGasto:0, nombre:'', categoria:{}, monto:0, fecha: new Date(), imagen:'', tipoDivision: 1, usuario: this.usuario}
   username: string = "";
 
@@ -41,15 +45,18 @@ export class GrupoDetalleComponent {
   }
 
 ngOnInit(){
-  const idGrupo = this.route.snapshot.paramMap.get('id');
-  this.grupoService.getGrupo(idGrupo).subscribe(grupo => { this.grupo = grupo});
-  this.grupoService.getIntegrantes(idGrupo).subscribe(miembros => {this.miembros=miembros})
-  this.grupoService.getGastos(idGrupo).subscribe(gastos => {this.gastos=gastos})
+  this.grupoService.getGrupo(this.idGrupo).subscribe(grupo => { this.grupo = grupo});
+  this.grupoService.getGastos(this.idGrupo).subscribe(gastos => {this.gastos=gastos})
   this.grupoService.getCategorias().subscribe(categorias => {this.categorias=categorias})
-  let usuario = localStorage.getItem("currentUser");
-  const tokenData= jwt_decode.jwtDecode(String(usuario));
-  let username = tokenData.sub as string;
-  this.usuarioService.getUsuario(username).subscribe(usuario => {this.usuario=usuario})
+  this.llenarMiembros(this.idGrupo);
+  const usuario = localStorage.getItem("currentUser");
+  
+  if (usuario) {
+    const tokenData = jwt_decode.jwtDecode(String(usuario));
+    this.username = tokenData.sub as string;
+    this.llenarAmigos();
+    }
+  
 }
 
 onClick(){
@@ -58,10 +65,10 @@ onClick(){
 
 onClickAgregar(){
   this.agregar=true;
+  this.llenarAmigos();
 }
 
 onCreate(){
-  
   let nombreg = this.nombreGasto.value as string
   let cat = this.categorias?.find(cat => cat.idCategoria = Number(this.categoriaGasto.value))
   this.gasto.nombre=nombreg
@@ -69,9 +76,8 @@ onCreate(){
   this.gasto.usuario=this.usuario
   this.gasto.grupo=this.grupo
   this.gasto.monto=Number(this.montoGasto.value)
-  
-  const idGrupo = this.route.snapshot.paramMap.get('id');
-  this.grupoService.createGasto(idGrupo,this.gasto).subscribe(() =>{
+
+  this.grupoService.createGasto(this.idGrupo,this.gasto).subscribe(() =>{
     console.log('se creo el gasto ' + this.gasto.nombre);
   }
   );
@@ -85,5 +91,50 @@ redirectActualizarGrupo() {
 redirectActualizarGasto() {
   const idGasto = this.route.snapshot.paramMap.get('id');
   this.router.navigate([idGasto, 'actualizarGasto']);  
+}
+
+onAgregarMiembro(){
+  this.grupoService.agregarMiembro(this.grupo.idGrupo,this.nuevoMiembro).subscribe(() =>{
+    console.log('se agrego el miembro ' + this.nuevoMiembro);
+    this.llenarMiembros(this.idGrupo);
+    this.llenarAmigos();
+    this.agregar=false;
+  })
+
+}
+
+onQuitarMiembro(){
+  this.grupoService.quitarMiembro(this.grupo.idGrupo,this.quitarMiembro).subscribe(() =>{
+    console.log('se quito el miembro ' + this.quitarMiembro);
+    this.llenarAmigos();
+    this.llenarMiembros(this.idGrupo);
+  })
+}
+
+llenarMiembros(idGrupo?: string | null){
+  this.grupoService.getIntegrantes(idGrupo as string).subscribe(miembros => {this.miembros=miembros;})
+}
+
+llenarAmigos(){
+  this.usuarioService.getUsuario(this.username)
+      .pipe(
+        switchMap((usuario) => {
+          this.usuario = usuario;
+          return this.usuarioService.getAmigos(this.username); 
+        })
+      )
+      .subscribe(
+        (amigos) => {
+          this.amigos = amigos || []; 
+          console.log('Amigos fetched:', this.amigos);
+          this.amigos = this.amigos.filter(amigo => 
+            !this.miembros?.some(miembro => miembro.usuario === amigo.usuario)
+          );
+          console.log('Filtered Amigos:', this.amigos);
+        },
+        (error) => {
+          console.error('Error fetching amigos:', error);
+        }
+      );
 }
 }

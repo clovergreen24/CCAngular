@@ -57,9 +57,13 @@ export class ActualizarGrupoComponent {
       const id = this.route.snapshot.params['id']; // Obtener el ID del grupo de la URL
       const datosActualizados = this.grupoForm.value as CrearGrupo;
       console.log('Id categoria:', datosActualizados.categoria as number);
-      const categoriaId = datosActualizados.categoria as Number;
+      const categoriaId = datosActualizados.categoria as number;
       this.cat.getCategoria(categoriaId).subscribe((categoria) => { 
-        datosActualizados.categoria = categoria;
+        if (categoria.idCategoria !== undefined) {
+          datosActualizados.categoria = categoria.idCategoria as number;
+        } else {
+          console.error('Categoria idCategoria is undefined');
+        }
         this.grupoService.actualizarGrupo(id, datosActualizados).subscribe(() => {
           console.log('se actualizo grupo ');
           this.location.back();     
