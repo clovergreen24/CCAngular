@@ -54,8 +54,6 @@ ngOnInit(){
   if (usuario) {
     const tokenData = jwt_decode.jwtDecode(String(usuario));
     this.username = tokenData.sub as string;
-
-    
     this.llenarAmigos();
     }
   
@@ -71,7 +69,6 @@ onClickAgregar(){
 }
 
 onCreate(){
-  
   let nombreg = this.nombreGasto.value as string
   let cat = this.categorias?.find(cat => cat.idCategoria = Number(this.categoriaGasto.value))
   this.gasto.nombre=nombreg
@@ -123,15 +120,13 @@ llenarAmigos(){
       .pipe(
         switchMap((usuario) => {
           this.usuario = usuario;
-          return this.usuarioService.getAmigos(this.username); // Fetch amigos after fetching usuario
+          return this.usuarioService.getAmigos(this.username); 
         })
       )
       .subscribe(
         (amigos) => {
-          this.amigos = amigos || []; // Initialize amigos array if null
+          this.amigos = amigos || []; 
           console.log('Amigos fetched:', this.amigos);
-          
-          // Filter amigos, removing those who are already members
           this.amigos = this.amigos.filter(amigo => 
             !this.miembros?.some(miembro => miembro.usuario === amigo.usuario)
           );

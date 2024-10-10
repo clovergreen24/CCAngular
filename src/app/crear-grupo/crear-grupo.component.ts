@@ -23,14 +23,14 @@ export class CrearGrupoComponent {
   grupoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     categoria: new FormControl(),
-    // integrantes: new FormControl([])
+    integrantes: new FormControl([])
   })
   
   dropdownList: Usuario[] =[]
   dropdownSettings:IDropdownSettings={}
   categorias: Categoria[] = [];
   username: string = "";
-  miembros: Usuario[]=[]
+  miembros: number[]=[]
   categoriaSelect=new FormControl('')
 
   constructor(private grupoService: GrupoService, private router: Router, private cat: CategoriaService, private usuario: UsuarioService) { }
@@ -47,9 +47,8 @@ export class CrearGrupoComponent {
       let reg: CrearGrupo = {
         nombre: this.grupoForm.get('nombre')?.value || '',
         categoria: this.grupoForm.get('categoria')?.value || '',
-        // integrantes: this.grupoForm.get('integrantes')?.value || []
+        integrantes: this.miembros || [],
       }
-      
       let usuario = localStorage.getItem("currentUser");
       const tokenData = jwt_decode.jwtDecode(String(usuario));
       let username = tokenData.sub as String;
@@ -69,24 +68,26 @@ export class CrearGrupoComponent {
       this.dropdownList = amigos;
     })
     this.dropdownSettings={
-      idField: 'IdUsuario',
+      idField: 'idUsuario',
       textField: 'nombre',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-
     }
   }
-  onSelect(amigo: Usuario){
-    this.miembros.push(amigo)
+  onSelect(item : any){
+    console.log(item)
+    this.miembros.push(item.idUsuario)
+    console.log('pusheando amigo ' + item.idUsuario)
   }
-  onDeSelect(amigo: Usuario){
-    this.miembros = this.miembros.filter(m => m.idUsuario !== amigo.idUsuario)
+  onDeSelect(item:any){
+    console.log('quitando amigo' + item.idUsuario)
+    this.miembros = this.miembros.filter(m => m !== item.idUsuario)
   }
   onDeSelectAll(){
     this.miembros = []
+    console.log('quitando todo')
   }
   onSelectAll(){
-    this.miembros = this.dropdownList
+    this.miembros = this.dropdownList.flatMap(x => x.idUsuario as number);
+    console.log('pusheando todo')
   }
   llenarCategorias() {
     this.grupoService.getCategorias().subscribe(

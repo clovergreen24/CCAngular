@@ -19,8 +19,14 @@
     <label for="amigos">Amigos</label>
 
     <div *ngIf="dropdownList.length==0"></div>
-    <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList">
-
+    <ng-multiselect-dropdown
+    [settings]="dropdownSettings" 
+    [data]="dropdownList"
+    [(ngModel)]="miembros"
+    (onSelect)="onSelect($event)"
+    (onSelectAll)="onSelectAll()"
+    (onDeSelect)="onDeSelect($event)"
+    (onDeSelectAll)="onDeSelectAll()">
     </ng-multiselect-dropdown>
 
 

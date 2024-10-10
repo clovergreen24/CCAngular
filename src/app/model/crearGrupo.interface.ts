@@ -3,6 +3,6 @@ import { Usuario } from "./usuario.interface";
 
 export interface CrearGrupo {
     nombre: string;
-    // integrantes: Usuario[],
+    integrantes: number[],
     categoria: number;
 }
